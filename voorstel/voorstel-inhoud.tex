@@ -21,25 +21,50 @@ Basketbal en in het bijzonder de National Basketball Association (NBA), is een o
 Dit onderzoek richt zich op het gebruiken en vergelijken van verschillende machine learning modellen om speler statistieken te voorspellen. Dit gebeurt aan de hand van historische wedstrijddata. Het gaat hierbij om dingen zoals het aantal punten, rebounds of assists dat een speler per wedstrijd behaald. De doelgroep van dit onderzoek zijn vooral data analisten binnen sport analytische bedrijven of NBA teams die deze data willen gebruiken om beslissingen te maken eventueel rond scouting of speler evaluatie.
 \\
 \\
-De probleemstelling van dit onderzoek: Hoe presteren verschillende machine learning modellen bij het voorspellen van NBA speler statistieken op basis van historische wedstrijddata en welk model levert daarbij de meest nauwkeurige voorspellingen op? Inmiddels zijn er verschillende modellen die wedstrijduitslagen kunnen voorspellen, maar er is minder helderheid over hoe spelers hun prestaties zullen vertonen. Het is daarom boeiend om te kijken naar de kwaliteitsverschillen tussen deze modellen.
-\\
-\\
-Dit onderzoek heeft als doel om te bepalen welke machine learning-modellen het beste geschikt zijn voor het voorspellen van speler statistieken, gebaseerd op een literatuurstudie en experimentele vergelijkingen. We gaan verschillende modellen trainen en evalueren op dezelfde historische dataset met maatstaven zoals Mean Absolute Error (MAE) en Root Mean Squared Error (RMSE).
+De probleemstelling van dit onderzoek luidt als volgt:
+
+\begin{quote}
+\textbf{Hoofdonderzoeksvraag:} Hoe presteren verschillende machine learning modellen bij het voorspellen van NBA spelerstatistieken op basis van historische wedstrijddata en welk model levert daarbij de meest nauwkeurige voorspellingen op? 
+\end{quote}
+
+Om deze Hoofdonderzoeksvraag te beantwoorden, worden het probleemdomein en het oplossingsdomein verder opgesplitst in de volgende deelvragen:
+
+\subsection{Deelvragen: probleemdomein}
+
+In het probleemdomein worden de volgende deelvragen onderzocht:
+\begin{enumerate}
+  \item Welke factoren hebben momenteel de grootste invloed op de prestaties van NBA spelers?
+  \item Welke uitdagingen doen zich voor bij het verzamelen en verwerken van historische wedstrijddata voor NBA spelers?
+  \item Op welke manier worden spelerstatistieken momenteel voorspeld binnen de NBA en welke beperkingen hebben deze methoden?
+\end{enumerate}
+
+\subsection{Deelvragen: oplossingsdomein}
+
+In het oplossingsdomein worden de volgende deelvragen onderzocht:
+\begin{enumerate}
+  \item Welke machine learning modellen worden volgens de literatuurstudie het meest gebruikt en als het beste modellen beoordeeld voor het voorspellen van spelerstatistieken in de NBA?
+  \item Welke maatstaven zijn het meest geschikt om de kwaliteit van voorspellingen van spelerstatistieken te evalueren? 
+\end{enumerate}
+
+Tot slot heeft dit onderzoek als doel om te bepalen welke machine learning modellen het meest geschikt zijn voor het voorspellen van speler statistieken, gebaseerd op een literatuurstudie en experimentele vergelijkingen. We gaan verschillende modellen trainen en evalueren op dezelfde historische dataset met maatstaven zoals Mean Absolute Error (MAE) en Root Mean Squared Error (RMSE).
+
 
 %---------- Stand van zaken ---------------------------------------------------
 
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
-
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
-
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
-
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
-
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
+Met de voortdurende verbetering van machine learning modellen en de vele data die verzameld wordt over tijd zijn verschillende sectoren op zoek naar manieren om hun voorspellingsmodellen te optimaliseren. In de wereld van sportanalyse valt dit niet meer weg te denken, het is een uitstekend hulpmiddel voor teams en analisten om besluiten te kunnen nemen en om advies te geven alsook om strategieën in te plannen \autocite{papageorgiou2024}.
+\\\\
+NBA teams kunnen verschillende inzichten creëren aan de hand van data en voorspellingen. Voorspellingen zoals spelerstatistieken, transferwaarde en uitslagen zijn voor de hand liggend, maar AI wordt ook nog op andere manieren gebruikt, zo gebruiken de Toronto Raptors een AI systeem om te kijken hoe de vorm is van hun shottechniek \autocite{corona2025}. AI wordt dus op meerdere manieren geïntegreerd in de sport en kan zeer handig zijn voor analisten. In deze literatuurstudie wordt er gefocust op machine learning modellen die spelerstatistieken voorspellen.
+\\\\
+In eerder onderzoek evalueert Papageorgiou 14 verschillende machine learning modellen voor het voorspellen van individuele prestaties, hij maakte gebruik van Adaboost (AB), K-nearest neighbors (KNN), decision trees (DTs), extra trees (ET), light gradient boosting machine (LGBM), elastic net (EN), random forest (RF), gradient boosting machine (GBM), passive aggressive (PA) Regressor, Bayesian Ridge (BR), least angle regression (LARS), ridge regression (RR), Huber Regression (HR) and least absolute shrinkage and selection operator (LASSO) \autocite{papageorgiou2024}. Deze studie toont aan dat de boom gebaseerde modellen zoals Extra Trees, Random Forest en Decision Tree het beste presteren, met Extra Trees als beste model  \autocite{papageorgiou2024}. Vergelijkbare onderzoeken bevestigen dat ensemble modellen en gradient boostingstechnieken lagere voorspellingsfouten halen dan lineaire modellen vooral wanneer historische spelerstatistieken en informatie over tegenstanders gecombineerd worden \autocite{hunba}.
+\\\\
+Bovendien wordt er aangetoond dat boom gebaseerde modellen in de NBA vaak worden gecombineerd met technieken zoals SHapley Additive exPlanations (SHAP) om zichtbaar te maken welke features het meest bijdragen aan de voorspelde resultaten \autocite{ouyang2024}.
+\\\\
+Eerdere studies rond het voorspellen van wedstrijduitslagen tonen aan dat modellen zoals XGBoost, Random Forest, MLP netwerken en hybride benaderingen zeer hoge nauwkeurigheden kunnen behalen, in sommige gevallen rond 90\% voor het voorspellen van wedstrijd uitslagen \autocite{ouyang2024}. Dit bevestigt dat machine learning goed werkt in de NBA, maar focust zich meestal en alleen op teamuitslagen en niet op individuele spelerstatistieken.
+\\\\
+Op basis van deze bevindingen is het essentieel om meerdere machine learning modellen te vergelijken, in deze bachelorproef wordt daarom onderzocht hoe verschillende modellen presteren bij het voorspellen van NBA spelerstatistieken en welke modellen de beste resultaten opleveren.
 
 % Voor literatuurverwijzingen zijn er twee belangrijke commando's:
 % \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
@@ -48,23 +73,55 @@ Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle no
 %   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
 %   ...'')
 
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
+% Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
 
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor literatuurstudie, interviews met belanghebbenden (bv.~voor requirements-analyse), experimenten, simulaties, vergelijkende studie, risico-analyse, PoC, \ldots?
+Het onderzoek is opgezet als een vergelijkende studie waarin verschillende machine learning modellen voor het voorspellen van spelerstatistieken worden ontwikkeld, getraind en geëvalueerd op basis van historische gegevens. De methode combineert een literatuurstudie en experimenten met evaluatiecriteria zoals MAE en RMSE
+\subsection{Fase 1: Literatuurstudie en uitwerking deelvragen}
+In de eerste fase focussen we ons op de literatuurstudie, meer bepaald eerdere studies die onderzoek doen naar bestaande machine learning modellen die voorspellingen maken op basketbal prestaties, met een specifieke focus op spelerstatistieken en welke factoren deze kunnen beïnvloeden. Deze fase richt zich vooral op de onderliggende vragen binnen het probleemdomein.
+De belangrijkste resultaten van deze fase zijn
+\begin{itemize} 
+\item Een overzicht van gebruikte features, modellen en evaluatiecriteria in eerdere studies. 
+\item Een verfijnde lijst van modellen die in aanmerking komen voor dit onderzoek.
+\end{itemize}
 
-Valt je onderwerp onder één van de typische soorten bachelorproeven die besproken zijn in de lessen Research Methods (bv.\ vergelijkende studie of risico-analyse)? Zorg er dan ook voor dat we duidelijk de verschillende stappen terug vinden die we verwachten in dit soort onderzoek!
+\subsection{Fase 2: Dataverzameling en preprocessing}
+In de tweede fase worden de historische gegevens van verschillende seizoenen verzameld uit openbare bronnen, wat mogelijk is via Kaggle, waar officiële NBA-statistieken te vinden zijn. De ruwe gegevens worden opgeschoond waar nodig en mogelijk aangevuld met nieuwe kolommen met features die de nauwkeurigheid van het model mogelijk kunnen verbeteren.
+We kunnen voor deze fase gebruik maken van volgende tools:
+\begin{itemize} 
+\item Python met pandas en voor data cleaning en feature engineering. 
+\item Jupyter Notebooks voor herhaalbare verwerking van gegevens. 
+\item Git voor versiebeheer van scripts en notebooks.
+\end{itemize}
+Aan het einde van deze fase willen we een duidelijk gedocumenteerde dataset bekomen met een beschrijving van alle features.
 
-Vermijd onderzoekstechnieken die geen objectieve, meetbare resultaten kunnen opleveren. Enquêtes, bijvoorbeeld, zijn voor een bachelorproef informatica meestal \textbf{niet geschikt}. De antwoorden zijn eerder meningen dan feiten en in de praktijk blijkt het ook bijzonder moeilijk om voldoende respondenten te vinden. Studenten die een enquête willen voeren, hebben meestal ook geen goede definitie van de populatie, waardoor ook niet kan aangetoond worden dat eventuele resultaten representatief zijn.
+\subsection{Fase 3: Modelontwikkeling en experimenten}
+In de derde fase gaan we verschillende machine learning modellen ontwikkelen om spelerstatistieken  zoals punten, rebounds en assists per wedstrijd te voorspellen. Er worden zowel eenvoudigere modellen (lineaire regressie modellen) als complexere modellen (Random Forest en Gradient boosting)  geselecteerd op basis van de modellen die in de literatuurstudie naar voren kwamen als goed presterende modellen voor basketbal statistieken. In fase 3-4 ligt de focus op het oplossingsdomein, waar er gezocht word naar concrete oplossing voor het probleem.
 
-Uit dit onderdeel moet duidelijk naar voor komen dat je bachelorproef ook technisch voldoen\-de diepgang zal bevatten. Het zou niet kloppen als een bachelorproef informatica ook door bv.\ een student marketing zou kunnen uitgevoerd worden.
+De experimentele aanpak omvat: 
+\begin{itemize} 
+\item Een train/validatie/test set opzetten, bij voorkeur seizoens- of tijdsgebonden, om overfitting op toekomstige wedstrijden te vermijden. 
+\item Hyperparameter tuning grid search of randomized search. 
+\end{itemize}
+Aan het eind van deze fase willen we  een set van getrainde modellen met vastgelegde hyperparameters en configuraties alsook een log in tabelformaat die de prestaties en instellingen per model weergeeft.
 
-Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt hiervoor te gebruiken of te ontwikkelen.
 
-Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
+\subsection{Fase 4: Evaluatie en vergelijkende studie}
+In de vierde en laatste fase worden de machine learning modellen beoordeeld en vergeleken met de testset, waarbij evaluatiecriteria zoals MAE en RMSE of andere relevante criteria van de gekozen doelstellingen worden overwogen. De resultaten worden vergeleken om te bepalen welke modellen de laagste voorspellingsfouten maken voor verschillende spelerstatistieken en of dat er modellen zijn die steeds beter presteren.
+De analyse omvat: 
+\begin{itemize} 
+\item Vergelijking van modellen via tabellen en visualisaties. Bijvoorbeeld: plots van voorspellingen ten opzicht van werkelijke waarden.
+\item Analyse van feature importantie voor de best presterende modellen, zodat duidelijk wordt welke variabelen het meest bijdragen aan de voorspellingen.
+ \end{itemize}
+Aan het einde van deze fase willen we een vergelijkingstabel bekomen met evaluatiescores in per model en per spelerstatistiek, ook willen we een beschrijving geven van het best presterende machine learning model.
+
+
+\subsection{Tools }
+Het onderzoek zal gebruik maken van veel voorkomende machine learning tools  van python, scikit-learn, VS code, Git en indien nodig een GPU voor zwaardere modellen of grotere datasets. 
+
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
