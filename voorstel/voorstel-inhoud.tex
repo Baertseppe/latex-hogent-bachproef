@@ -15,16 +15,16 @@
 \section{Inleiding}%
 \label{sec:inleiding}
 
-Basketbal is een van de populairste sporten ter wereld, door de populariteit zijn er enorm veel spelers die actief zijn op verschillende niveaus. Voor teams wordt het daardoor ook steeds belangrijker om de juiste spelers te vinden die in het team zouden passen. In de BNXT league, de gezamenlijke Belgisch-Nederlandse basketbalcompetitie wordt er al vaker gekeken naar statistieken en data analyses om hun beslissingen op te baseren. Er bestaan verschillende websites die data aanbieden voor de BNXT league, deze data omvat zowel wedstrijden als spelerstatistieken, maar er is nog geen concreet scoutingsplatform dat deze data op een geïntegreerde wijze inzet om teams te helpen bij het vergelijken en analyseren van spelersstatistieken.
+Basketbal is een van de populairste sporten ter wereld, door de populariteit zijn er enorm veel spelers die actief zijn op verschillende niveaus. Voor teams wordt het daardoor ook steeds belangrijker om de juiste spelers te vinden die in het team zouden passen. In de BNXT league, de gezamenlijke Belgisch-Nederlandse basketbalcompetitie wordt er al vaker gekeken naar statistieken en data analyses om hun beslissingen op te baseren. Er bestaan verschillende websites die data aanbieden voor de BNXT league, deze data omvat zowel wedstrijden als spelerstatistieken, maar er is nog geen concrete scoutingomgeving dat deze data op een geïntegreerde wijze inzet om teams te helpen bij het vergelijken en analyseren van spelersstatistieken.
 \\
 \\
-Dit onderzoek richt zich op het gebruiken en vergelijken van verschillende machine learning modellen om speler statistieken te voorspellen. Dit gebeurt aan de hand van historische wedstrijddata. Het gaat hierbij om dingen zoals het aantal punten, rebounds of assists dat een speler per wedstrijd behaald. De doelgroep van dit onderzoek zijn vooral data analisten binnen sport analytische bedrijven of NBA teams die deze data willen gebruiken om beslissingen te maken eventueel rond scouting of speler evaluatie.
+Dit onderzoek richt zich op het ontwerpen en realiseren van een datagedreven scoutingomgeving voor de BNXT league. In deze omgeving wordt alle historische wedstrijddata centraal verzameld in een datawarehouse, opgeschoond en worden eenvoudige machine learning modellen gebruikt om spelers te rangschikken en te vergelijken. De doelgroep van dit onderzoek zijn vooral scouts, data analisten binnen BNXT clubs en sport analytische organisaties die deze data willen gebruiken om hun scoutingsbeslissingen beter te onderbouwen.
 \\
 \\
 De probleemstelling van dit onderzoek luidt als volgt:
 
 \begin{quote}
-\textbf{Hoofdonderzoeksvraag:} Hoe presteren verschillende machine learning modellen bij het voorspellen van NBA spelerstatistieken op basis van historische wedstrijddata en welk model levert daarbij de meest nauwkeurige voorspellingen op? 
+\textbf{Hoofdonderzoeksvraag:} Hoe kan een datagedreven scoutingomgeving voor de BNXT league worden ontworpen en gerealiseerd, zodat scouts spelers efficïent kunnen analyseren en vergelijken op basis van relevante prestatie-indicatoren?
 \end{quote}
 
 Om deze Hoofdonderzoeksvraag te beantwoorden, worden het probleemdomein en het oplossingsdomein verder opgesplitst in de volgende deelvragen:
@@ -33,38 +33,41 @@ Om deze Hoofdonderzoeksvraag te beantwoorden, worden het probleemdomein en het o
 
 In het probleemdomein worden de volgende deelvragen onderzocht:
 \begin{enumerate}
-  \item Welke factoren hebben momenteel de grootste invloed op de prestaties van NBA spelers?
-  \item Welke uitdagingen doen zich voor bij het verzamelen en verwerken van historische wedstrijddata voor NBA spelers?
-  \item Op welke manier worden spelerstatistieken momenteel voorspeld binnen de NBA en welke beperkingen hebben deze methoden?
+  \item Hoe worden beslissingen over scouting en selectie in BNXT-clubs vandaag de dag genomen en welke rol spelen gegevens daarin?
+  \item Welke gegevens over wedstrijden en spelers voor de BNXT League zijn beschikbaar en welke beperkingen of kwaliteitsproblemen zijn er met betrekking tot deze gegevens?
+  \item Met welke uitdagingen worden scouts en sportief managers geconfronteerd bij het vergelijken en evalueren van spelers op basis van bestaande tools en data?
 \end{enumerate}
 
 \subsection{Deelvragen: oplossingsdomein}
 
 In het oplossingsdomein worden de volgende deelvragen onderzocht:
 \begin{enumerate}
-  \item Welke machine learning modellen worden volgens de literatuurstudie het meest gebruikt en als het beste modellen beoordeeld voor het voorspellen van spelerstatistieken in de NBA?
-  \item Welke maatstaven zijn het meest geschikt om de kwaliteit van voorspellingen van spelerstatistieken te evalueren? 
+  \item Hoe kan een data architectuur en pipeline worden ontworpen om BNXT wedstrijd- en spelersstatistieken centraal te verzamelen, op te schonen en te modelleren voor scoutingdoeleinden?
+  \item Welke visualisaties, filters en rangschikkingen zijn het meest geschikt om scouts in een scoutingomgeving te ondersteunen bij het analyseren en vergelijken van spelers?
+  \item In welke mate voldoet de ontwikkelde scoutingomgeving aan de behoeften van de beoogde gebruikers op het vlak van bruikbaarheid, duidelijkheid en datakwaliteit?
 \end{enumerate}
 
-Tot slot heeft dit onderzoek als doel om te bepalen welke machine learning modellen het meest geschikt zijn voor het voorspellen van speler statistieken, gebaseerd op een literatuurstudie en experimentele vergelijkingen. We gaan verschillende modellen trainen en evalueren op dezelfde historische dataset met maatstaven zoals Mean Absolute Error (MAE) en Root Mean Squared Error (RMSE).
 
+Tot slot heeft dit onderzoek als doel om een datagedreven scoutingomgeving te ontwerpen en te realiseren voor de BNXT league. De omgeving combineert een centrale datalaag met wedstrijd- en spelerstatistieken en een visuele laag in de vorm van een dashboard, waarin gebruikers spelers kunnen filteren, analyseren en vergelijken.
 
 %---------- Stand van zaken ---------------------------------------------------
 
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-Met de voortdurende verbetering van machine learning modellen en de vele data die verzameld wordt over tijd zijn verschillende sectoren op zoek naar manieren om hun voorspellingsmodellen te optimaliseren. In de wereld van sportanalyse valt dit niet meer weg te denken, het is een uitstekend hulpmiddel voor teams en analisten om besluiten te kunnen nemen en om advies te geven alsook om strategieën in te plannen \autocite{papageorgiou2024}.
+Met de opkomst van geavanceerde data analyse en business intelligence zoeken steeds meer basketbalclubs naar manieren om hun scouting te verbeteren en datagedreven te ondersteunen \autocite{iglesiasdata}. Sportorganisaties beschikken tegenwoordig over grote hoeveelheden data, maar worstelen vaak met het vertalen van data naar bruikbare inzichten voor scouts \autocite{demenius2017benefits}. In dit onderzoek ligt de focus op een datagedreven scoutingomgeving die deze data vertaalt om beslissingen rond spelers in de BNXT league beter te onderbouwen.
 \\\\
-NBA teams kunnen verschillende inzichten creëren aan de hand van data en voorspellingen. Voorspellingen zoals spelerstatistieken, transferwaarde en uitslagen zijn voor de hand liggend, maar AI wordt ook nog op andere manieren gebruikt, zo gebruiken de Toronto Raptors een AI systeem om te kijken hoe de vorm is van hun shottechniek \autocite{corona2025}. AI wordt dus op meerdere manieren geïntegreerd in de sport en kan zeer handig zijn voor analisten. In deze literatuurstudie wordt er gefocust op machine learning modellen die spelerstatistieken voorspellen.
+Een recente studie over data gebaseerde beslissingen binnen teams toont aan dat nog veel clubs hun beslissingen baseren op wat ze observeren, persoonlijke netwerken en andere informatiebronnen \autocite{iglesiasdata}. Deze studie stelt ook dat het aantrekken van spelers een gestructureerd proces is waarin sportieve prestaties, fysieke eigenschappen, financiële omstandigheden en contextuele elementen samenkomen. Aan de andere kant wordt data-based decision-making beschreven als een iteratief proces dat kwantitatieve gegevens en kennis van het domein verenigt onder tijdsdruk en onzekerheid. De kwalitatieve analyse met managers, coaches en scouts toont daarnaast aan dat veel Europese clubs geen samenhangend dataplatform of formeel beslissingskader hanteren, wat het lastig maakt om mogelijke aanwervingen op een systematische manier te vergelijken en de genomen beslissingen te herhalen \autocite{iglesiasdata}.
 \\\\
-In eerder onderzoek evalueert Papageorgiou 14 verschillende machine learning modellen voor het voorspellen van individuele prestaties, hij maakte gebruik van Adaboost (AB), K-nearest neighbors (KNN), decision trees (DTs), extra trees (ET), light gradient boosting machine (LGBM), elastic net (EN), random forest (RF), gradient boosting machine (GBM), passive aggressive (PA) Regressor, Bayesian Ridge (BR), least angle regression (LARS), ridge regression (RR), Huber Regression (HR) and least absolute shrinkage and selection operator (LASSO) \autocite{papageorgiou2024}. Deze studie toont aan dat de boom gebaseerde modellen zoals Extra Trees, Random Forest en Decision Tree het beste presteren, met Extra Trees als beste model  \autocite{papageorgiou2024}. Vergelijkbare onderzoeken bevestigen dat ensemble modellen en gradient boostingstechnieken lagere voorspellingsfouten halen dan lineaire modellen vooral wanneer historische spelerstatistieken en informatie over tegenstanders gecombineerd worden \autocite{hunba}.
+Onderzoek in de hoogste basketbalklasse van Litouwen laat zien dat managers en coaches overwegend positief staan tegenover geavanceerde basketbalanalyses, omdat gedetailleerde statische analyses helpen om teamperformantie beter te begrijpen en spelersmarktwaarde nauwkeuriger te bepalen. Tegelijk geeft deze studie aan dat de grootste nood niet alleen ligt bij meer data, maar vooral ook bij het vertalen van deze data naar inzichten aan de hand van visualisaties en dashboards \autocite{demenius2017benefits}.
 \\\\
-Bovendien wordt er aangetoond dat boom gebaseerde modellen in de NBA vaak worden gecombineerd met technieken zoals SHapley Additive exPlanations (SHAP) om zichtbaar te maken welke features het meest bijdragen aan de voorspelde resultaten \autocite{ouyang2024}.
+In de sportwetenschappelijke sector analyseren systematische studies en meta analyses over talentidentificatie in basketbal de essentiële antropometrische, fysiologische en fysieke elementen die elite spelers van spelers onderscheiden\autocite{han2023basketball}. Deze beoordelingen laten zien dat factoren zoals lengte, lichaamsmassa, sprongkracht, snelheid en uithoudingsvermogen aanzienlijke variaties in prestaties vertonen, waardoor ze cruciale criteria zijn voor selectie en ontwikkeling op de lange termijn in een scoutingsetting. Aanvullend identificeren studies naar key performance indicators bij NBA-spelers wedstrijdstatistieken zoals effective field-goal percentage, true shooting percentage, turnoverpercentage, offensive en defensive rating en plus/minus-varianten als cruciale indicatoren voor spelersimpact en rol in het team  \autocite{dehesa2019key}. Deze resultaten wijzen erop dat een hedendaagse scoutingomgeving zowel fysieke criteria als geavanceerde wedstrijdstatistieken moet combineren om spelersprofielen te beoordelen \autocite{han2023basketball}.
 \\\\
-Eerdere studies rond het voorspellen van wedstrijduitslagen tonen aan dat modellen zoals XGBoost, Random Forest, MLP netwerken en hybride benaderingen zeer hoge nauwkeurigheden kunnen behalen, in sommige gevallen rond 90\% voor het voorspellen van wedstrijd uitslagen \autocite{ouyang2024}. Dit bevestigt dat machine learning goed werkt in de NBA, maar focust zich meestal en alleen op teamuitslagen en niet op individuele spelerstatistieken.
+In de literatuur wordt naast het beschrijven van de huidige praktijk ook gezocht naar richtlijnen om beslissingen met betrekking tot spelers systematischer te ondersteunen. Iglesias presenteert een framework waarin de kwaliteit van gegevens, informatiestromen, menselijke expertise en organisatorische processen worden samengevoegd in een toekomstgericht beslissingskader voor de rekrutering van spelers \autocite{iglesiasdata}. Dit kader vertrekt vanuit het idee van decision support en business intelligence, en benadrukt het belang van transparante informatie, duidelijke visualisaties en een iteratief evaluatieproces met stakeholders.
 \\\\
-Op basis van deze bevindingen is het essentieel om meerdere machine learning modellen te vergelijken, in deze bachelorproef wordt daarom onderzocht hoe verschillende modellen presteren bij het voorspellen van NBA spelerstatistieken en welke modellen de beste resultaten opleveren.
+Daarnaast laten management- en analysestudies zien dat strategische beslissingen met betrekking tot spelers en personeel steeds vaker worden genomen door middel van gestructureerde planning en selectie, waarbij zowel interne als externe analyses, financiële beperkingen en sportieve doelstellingen worden gecombineerd. Dit soort onderzoek illustreert dat datagedreven tools vooral succesvol zijn wanneer ze analytische informatie combineren met de expertise van scouts, coaches en managers, in plaats van die te vervangen.\autocite{banucha2025strategic}
+\\\\
+Op basis van deze literatuur wordt duidelijk dat er enerzijds een goed beeld bestaat van relevante factoren en knelpunten in basketbalrekrutering, en anderzijds bouwstenen beschikbaar zijn voor datagedreven besluitvorming en analytische ondersteuning. Desondanks worden specifieke toepassingen doorgaans gepresenteerd op het niveau van grote competities of op abstract procesniveau, en er is weinig onderzoek gedaan naar een geïntegreerde scoutingomgeving voor een specifieke competitie, zoals de BNXT League. Deze bachelorproef richt zich op die tekortkoming door een proof-of-concept te creëren waarin BNXT-wedstrijd- en spelersstatistieken gezamenlijk worden georganiseerd en via een dashboard toegankelijk zijn, zodat scouts spelers duidelijker en herhaaldelijk kunnen analyseren en vergelijken.
 
 % Voor literatuurverwijzingen zijn er twee belangrijke commando's:
 % \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
@@ -79,56 +82,50 @@ Op basis van deze bevindingen is het essentieel om meerdere machine learning mod
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Het onderzoek is opgezet als een vergelijkende studie waarin verschillende machine learning modellen voor het voorspellen van spelerstatistieken worden ontwikkeld, getraind en geëvalueerd op basis van historische gegevens. De methode combineert een literatuurstudie en experimenten met evaluatiecriteria zoals MAE en RMSE
+Methodologie
+
+Het onderzoek is opgezet als een ontwerpgerichte en deels vergelijkende studie waarin een datagedreven scoutingomgeving voor de BNXT League wordt ontworpen, geïmplementeerd en geëvalueerd op basis van historische wedstrijd- en spelersstatistieken. De methode combineert een literatuurstudie, requirements analyse, de uitwerking van een datalaag en de bouw van een dashboard (proof-of-concept).
+
 \subsection{Fase 1: Literatuurstudie en uitwerking deelvragen}
-In de eerste fase focussen we ons op de literatuurstudie, meer bepaald eerdere studies die onderzoek doen naar bestaande machine learning modellen die voorspellingen maken op basketbal prestaties, met een specifieke focus op spelerstatistieken en welke factoren deze kunnen beïnvloeden. Deze fase richt zich vooral op de onderliggende vragen binnen het probleemdomein.
-De belangrijkste resultaten van deze fase zijn
-\begin{itemize} 
-\item Een overzicht van gebruikte features, modellen en evaluatiecriteria in eerdere studies. 
-\item Een verfijnde lijst van modellen die in aanmerking komen voor dit onderzoek.
+In de eerste fase focussen we op de literatuurstudie, met name eerdere studies rond data-based decision-making in basketbalrekrutering, talentidentificatie, key performance indicators en strategische selectieprocessen. Deze fase richt zich vooral op de onderliggende vragen binnen het probleemdomein, zoals hoe rekrutering vandaag verloopt en welke statistieken relevant zijn voor spelersbeoordeling. De belangrijkste resultaten van deze fase zijn:
+\begin{itemize}
+  \item Een overzicht van relevante prestatie-indicatoren (fysiek en wedstrijd gebonden) voor scouting in basketbal.
+  \item Een set conceptuele bouwstenen en requirements voor een datagedreven scoutingomgeving.
 \end{itemize}
 
-\subsection{Fase 2: Dataverzameling en preprocessing}
-In de tweede fase worden de historische gegevens van verschillende seizoenen verzameld uit openbare bronnen, wat mogelijk is via Kaggle, waar officiële NBA-statistieken te vinden zijn. De ruwe gegevens worden opgeschoond waar nodig en mogelijk aangevuld met nieuwe kolommen met features die de nauwkeurigheid van het model mogelijk kunnen verbeteren.
-We kunnen voor deze fase gebruik maken van volgende tools:
-\begin{itemize} 
-\item Python met pandas en voor data cleaning en feature engineering. 
-\item Jupyter Notebooks voor herhaalbare verwerking van gegevens. 
-\item Git voor versiebeheer van scripts en notebooks.
+\subsection{Fase 2: Dataverzameling, opschoning en modellering}
+In de tweede fase worden historische wedstrijd- en spelersgegevens uit de BNXT League verzameld uit publieke of aangeleverde bronnen. De ruwe gegevens worden opgeschoond, genormaliseerd en waar nodig verrijkt met afgeleide kolommen op basis van de literatuur. Voor deze fase worden onder meer de volgende tools gebruikt:
+\begin{itemize}
+  \item Python met pandas voor het opkuisen van de data en transformaties.
+  \item Microsoft SQL voor het modelleren en laden van de gegevens in een relationele databank.
+  \item Github voor versiebeheer van scripts en notebooks.
 \end{itemize}
-Aan het einde van deze fase willen we een duidelijk gedocumenteerde dataset bekomen met een beschrijving van alle features.
+Aan het einde van deze fase willen we een duidelijk gedocumenteerde dataset en datamodel bekomen, met een beschrijving van alle gebruikte tabellen en prestatie-indicatoren die het dashboard zullen voeden.
 
-\subsection{Fase 3: Modelontwikkeling en experimenten}
-In de derde fase gaan we verschillende machine learning modellen ontwikkelen om spelerstatistieken  zoals punten, rebounds en assists per wedstrijd te voorspellen. Er worden zowel eenvoudigere modellen (lineaire regressie modellen) als complexere modellen (Random Forest en Gradient boosting)  geselecteerd op basis van de modellen die in de literatuurstudie naar voren kwamen als goed presterende modellen voor basketbal statistieken. In fase 3-4 ligt de focus op het oplossingsdomein, waar er gezocht word naar concrete oplossing voor het probleem.
-
-De experimentele aanpak omvat: 
-\begin{itemize} 
-\item Een train/validatie/test set opzetten, bij voorkeur seizoens- of tijdsgebonden, om overfitting op toekomstige wedstrijden te vermijden. 
-\item Hyperparameter tuning grid search of randomized search. 
+\subsection{Fase 3: Ontwerp en implementatie van de scoutingomgeving}
+In de derde fase wordt de eigenlijke scoutingomgeving ontworpen en gerealiseerd als Power BI-dashboard bovenop de datalaag. Microsoft Power BI wordt gebruikt om het Datawarehouse, measures in DAX en de visualisaties uit te werken. Op basis van de requirements worden onder meer de volgende onderdelen voorzien:
+\begin{itemize}
+  \item Een spelersoverzicht met filtermogelijkheden (seizoen, team, positie, leeftijd, minuten, enz.).
+  \item Detailpagina’s per speler met kernstatistieken en prestatie-indicatoren.
+  \item Vergelijkingsschermen waarin twee of meer spelers naast elkaar kunnen worden geplaatst.
 \end{itemize}
-Aan het eind van deze fase willen we  een set van getrainde modellen met vastgelegde hyperparameters en configuraties alsook een log in tabelformaat die de prestaties en instellingen per model weergeeft.
+In deze fase ligt de focus op het oplossingsdomein, het vertalen van de theoretische inzichten naar een concreet, interactief Power BI-prototype waarmee scouts spelers kunnen analyseren en vergelijken.
 
+\subsection{Fase 4: Evaluatie en gebruiksbeoordeling}
+In de vierde en laatste fase wordt het prototype geëvalueerd. Enerzijds gebeurt dit via technische tests, controle van datakwaliteit, juistheid van berekende indicatoren en performantie van de belangrijkste queries en visualisaties. Anderzijds wordt een beperkte gebruiksevaluatie uitgevoerd aan de hand van vooraf gedefinieerde use cases (zoals “vind een vervanger voor speler X” of “identificeer spelers met een bepaald profiel”). De evaluatie omvat:
+\begin{itemize}
+  \item Een verificatie of de omgeving toelaat om de vooropgestelde use cases uit te voeren.
+  \item Een korte, gestructureerde feedbackronde over bruikbaarheid, duidelijkheid en toegevoegde waarde van het dashboard.
+\end{itemize}
+Aan het einde van deze fase willen we een objectieve beschrijving geven van de sterktes en beperkingen van de ontwikkelde scoutingomgeving, aangevuld met aanbevelingen voor verdere uitbouw.
 
-\subsection{Fase 4: Evaluatie en vergelijkende studie}
-In de vierde en laatste fase worden de machine learning modellen beoordeeld en vergeleken met de testset, waarbij evaluatiecriteria zoals MAE en RMSE of andere relevante criteria van de gekozen doelstellingen worden overwogen. De resultaten worden vergeleken om te bepalen welke modellen de laagste voorspellingsfouten maken voor verschillende spelerstatistieken en of dat er modellen zijn die steeds beter presteren.
-De analyse omvat: 
-\begin{itemize} 
-\item Vergelijking van modellen via tabellen en visualisaties. Bijvoorbeeld: plots van voorspellingen ten opzicht van werkelijke waarden.
-\item Analyse van feature importantie voor de best presterende modellen, zodat duidelijk wordt welke variabelen het meest bijdragen aan de voorspellingen.
- \end{itemize}
-Aan het einde van deze fase willen we een vergelijkingstabel bekomen met evaluatiescores in per model en per spelerstatistiek, ook willen we een beschrijving geven van het best presterende machine learning model.
-
-
-\subsection{Tools }
-Het onderzoek zal gebruik maken van veel voorkomende machine learning tools  van python, scikit-learn, VS code, Git en indien nodig een GPU voor zwaardere modellen of grotere datasets. 
-
+\subsection{Tools}
+Het onderzoek zal gebruikmaken van courante data engineering- en BI-tools: Python pandas en SQL voor de dataverwerking, een relationele databank voor de opslag, en Microsoft Power BI als visualisatie laag voor het scoutingdashboard. Github wordt gebruikt voor versiebeheer van scripts en documentatie.
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
-Aan de hand van de literatuurstudie en de ontwikkelde methodologie wordt verwacht dat de complexere, boom gebaseerde modellen (zoals Random Forest en Gradient Boosting) minder voorspellingsfouten zullen maken dan eenvoudige lineaire regressiemodellen bij het berekenen van spelersstatistieken zoals punten, rebounds en assists per wedstrijd. Er zijn eerdere studies die aangeven dat ensemble en gradient boosting modellen in soortgelijke sportcontexten effectiever omgaan met niet-lineaire relaties en interacties tussen features, wat meestal resulteert in lagere waarden voor foutmaten zoals MAE en RMSE.
-\\
-\\
-Voor de data analisten in sport analytische bedrijven en NBA teams biedt het verwachte resultaat een duidelijke meerwaarde. Het onderzoek levert niet enkel een vergelijking op tussen verschillende machine learning modellen maar het geeft ook aanbevelingen over welke modellen er worden aanbevolen voor het voorspellen van spelerstatistieken. 
-
+Aan de hand van de literatuurstudie en de ontwikkelde methodologie wordt verwacht dat de voorgestelde datagedreven scoutingomgeving een bruikbaar hulpmiddel zal zijn om spelers in de BNXT League objectiever te analyseren en met elkaar te vergelijken. Het Power BI-dashboard moet toelaten om op basis van een centrale datalaag snel te filteren op relevante kenmerken zoals positie, leeftijd, minuten, efficiëntie en andere prestatie-indicatoren, en spelersprofielen naast elkaar te plaatsen. Op die manier wordt een deel van de huidige, eerder intuïtieve en gefragmenteerde besluitvorming rond rekrutering ondersteund door gestructureerde en herhaalbare statistische inzichten.
+\\\\
+Voor scouts en sportief managers biedt het verwachte resultaat een duidelijke meerwaarde. De proof-of-conceptomgeving levert niet enkel een geïntegreerd overzicht van BNXT-wedstrijd- en spelersstatistieken, maar demonstreert ook hoe een club met beperkte middelen een eigen datagedreven scoutingtool kan uitbouwen.
