@@ -5,33 +5,41 @@
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
 
-De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
-
-\begin{itemize}
-  \item context, achtergrond
-  \item afbakenen van het onderwerp
-  \item verantwoording van het onderwerp, methodologie
-  \item probleemstelling
-  \item onderzoeksdoelstelling
-  \item onderzoeksvraag
-  \item \ldots
-\end{itemize}
+Basketbal is een van de populairste sporten ter wereld, door de populariteit zijn er enorm veel spelers die actief zijn op verschillende niveaus. Voor teams wordt het daardoor ook steeds belangrijker om de juiste spelers te vinden die in het team zouden passen. In de BNXT league, de gezamenlijke Belgisch-Nederlandse basketbalcompetitie wordt er al vaker gekeken naar statistieken en data analyses om hun beslissingen op te baseren. Er bestaan verschillende websites die data aanbieden voor de BNXT league, deze data omvat zowel wedstrijden als spelerstatistieken, maar er is nog geen concrete scoutingomgeving dat deze data op een geïntegreerde wijze inzet om teams te helpen bij het vergelijken en analyseren van spelersstatistieken.
+\\
+\\
+Deze bachelorproef richt zich op het ontwerpen en realiseren van een datagedreven scoutingomgeving voor de BNXT League. In deze omgeving wordt historische wedstrijd- en spelerdata centraal verzameld in een datawarehouse, opgeschoond en verrijkt, en worden eenvoudige machine‑learningmodellen ingezet om spelers te rangschikken en met elkaar te vergelijken op basis van relevante prestatie‑indicatoren. De focus ligt daarbij niet op het ontwikkelen van zo complex mogelijke modellen, maar op het creëren van een transparant en bruikbaar hulpmiddel dat realistische meerwaarde biedt in de dagelijkse scoutingpraktijk.
+\\
+\\
+De belangrijkste gebruikers van deze omgeving zijn vooral mensen binnen de professionele context van BNXT clubs en sportdata‑organisaties. Denk hierbij aan scouts, data‑analisten en sportief verantwoordelijken die vandaag al met ruwe statistieken werken, maar nog geen toegang hebben tot een centraal platform dat hen ondersteunt bij het filteren, rangschikken en interpreteren van spelersinformatie. Door een concrete, casus gedreven oplossing voor deze doelgroep uit te werken, wil deze bachelorproef aantonen hoe data‑engineering en eenvoudige AI‑technieken gecombineerd kunnen worden om scoutingsbeslissingen beter te onderbouwen.
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}%
 \label{sec:probleemstelling}
 
-Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's'', systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+De BNXT League beschikt vandaag over uitgebreide historische data, onder meer via publieke statistiekplatformen en clubgebonden bronnen. Deze data omvat wedstrijd- en spelerstatistieken op seizoens- en wedstrijdniveau en vormt in principe een rijke basis om spelers objectief te evalueren. In de praktijk wordt deze informatie echter vooral gefragmenteerd en ad‑hoc gebruikt. Scouts en sportief verantwoordelijken werken met losse Excel‑bestanden, verschillende websites en persoonlijke notities, waardoor het moeilijk is om snel en consistent meerdere spelers naast elkaar te leggen om te vergelijken.
+\\\\
+Vooral bij clubs met beperkte analytische ondersteuning leidt dit tot concrete problemen in het beslissingsproces rond rekrutering. Het kost veel tijd om data te verzamelen, op te schonen en samen te voegen, en vergelijkingen tussen spelers steunen vaak op manuele berekeningen en intuïtie in plaats van op een gestandaardiseerd kader. Data‑analisten beschikken dan wel over de technische kennis en tools om met deze datasets te werken, maar missen een domein specifieke omgeving die gericht is op de specifieke behoeften van BNXT-scouting, in plaats van te focussen op generieke rapportage.
+\\\\
+Deze bachelorproef richt zich vooral enerzijds op scouts en sportief verantwoordelijken binnen de clubs die beslissingen nemen over de spelersrekrutering. Anderzijds richt deze bachelorproef zich op data-analisten binnen de BNXT league clubs die de statistieken voor de clubs omzetten naar rapporten. Een centraal platform dat al deze data bundelt, de data aanbiedt en eenvoudige voorspellingsmodellen gebruikt om spelers te rangschikken en te vergelijken kan hun werkproces positief beïnvloeden.  
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
 
-Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+In deze bachelorproef staat volgende onderzoeksvraag centraal: Hoe kan een datagedreven scoutingomgeving voor de BNXT league worden ontworpen en gerealiseerd, zodat scouts spelers efficïent kunnen analyseren en vergelijken op basis van relevante prestatie-indicatoren?
 
+Op basis van deze centrale onderzoeksvraag kunnen volgende deelvragen worden geformuleerd:
+\begin{itemize}
+    \item Welke statistieken en prestatie-indicatoren zijn relevant voor het analyseren en vergelijken van spelers in de BNXT League?
+    \item Hoe kan historische wedstrijd- en spelerdata uit verschillende bronnen worden verzameld, opgeschoond en geïntegreerd in een centrale datalaag?
+    \item Welke eenvoudige machine‑learningmodellen kunnen worden ingezet om spelers te rangschikken en te vergelijken op basis van relevante prestatie‑indicatoren?
+    \item Hoe kan een gebruiksvriendelijk Power BI dashboard worden ontworpen en gerealiseerd om scouts te ondersteunen bij het analyseren en vergelijken van spelers?
+    \item Wat is de meerwaarde van deze datagedreven scoutingomgeving in vergelijking met de huidige, meer intuïtieve benadering van spelersanalyse binnen de BNXT League?
+\end{itemize} 
+    
 \section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}%
 \label{sec:onderzoeksdoelstelling}
 
-Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor succes? Beschrijf die zo concreet mogelijk. Gaat het bv.\ om een proof-of-concept, een prototype, een verslag met aanbevelingen, een vergelijkende studie, enz.
-
+Het doel van deze bachelorproef is het ontwerpen en tot stand brengen van een proof‑of‑concept scoutingomgeving die historische BNXT wedstrijd- en spelersdata centraal verzamelt, verwerkt en beschikbaar maakt voor analyse door data‑analisten en scouts. Concreet betekent dit het opzetten van een data-architectuur en een data-pipeline naar een datawarehouse, het definiëren en berekenen van relevante prestatie-indicatoren, alsook het toepassen van eenvoudige machine-learningmodellen voor het rangschikken en vergelijken van spelers.
 \section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}%
 \label{sec:opzet-bachelorproef}
 

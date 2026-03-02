@@ -26,5 +26,44 @@
 %% Maak voor elke fase (behalve het literatuuronderzoek) een NIEUW HOOFDSTUK aan
 %% en geef het een gepaste titel.
 
-\lipsum[21-25]
+Methodologie
+
+Het onderzoek is opgezet als een ontwerpgerichte en deels vergelijkende studie waarin een datagedreven scoutingomgeving voor de BNXT League wordt ontworpen, geïmplementeerd en geëvalueerd op basis van historische wedstrijd- en spelersstatistieken. De methode combineert een literatuurstudie, requirements analyse, de uitwerking van een datalaag en de bouw van een dashboard (proof-of-concept).
+
+\subsection{Fase 1: Literatuurstudie en uitwerking deelvragen}
+In de eerste fase focussen we op de literatuurstudie, met name eerdere studies rond data-based decision-making in basketbalrekrutering, talentidentificatie, key performance indicators en strategische selectieprocessen. Deze fase richt zich vooral op de onderliggende vragen binnen het probleemdomein, zoals hoe rekrutering vandaag verloopt en welke statistieken relevant zijn voor spelersbeoordeling. De belangrijkste resultaten van deze fase zijn:
+\begin{itemize}
+  \item Een overzicht van relevante prestatie-indicatoren (fysiek en wedstrijd gebonden) voor scouting in basketbal.
+  \item Een set conceptuele bouwstenen en requirements voor een datagedreven scoutingomgeving.
+\end{itemize}
+
+\subsection{Fase 2: Dataverzameling, opschoning en modellering}
+In de tweede fase worden historische wedstrijd- en spelersgegevens uit de BNXT League verzameld uit publieke of aangeleverde bronnen. De ruwe gegevens worden opgeschoond, genormaliseerd en waar nodig verrijkt met afgeleide kolommen op basis van de literatuur. Voor deze fase worden onder meer de volgende tools gebruikt:
+\begin{itemize}
+  \item Python met pandas voor het opkuisen van de data en transformaties.
+  \item Microsoft SQL voor het modelleren en laden van de gegevens in een relationele databank.
+  \item Github voor versiebeheer van scripts en notebooks.
+\end{itemize}
+Aan het einde van deze fase willen we een duidelijk gedocumenteerde dataset en datamodel bekomen, met een beschrijving van alle gebruikte tabellen en prestatie-indicatoren die het dashboard zullen voeden.
+
+\subsection{Fase 3: Ontwerp en implementatie van de scoutingomgeving}
+In de derde fase wordt de eigenlijke scoutingomgeving ontworpen en gerealiseerd als Power BI-dashboard bovenop de datalaag. Microsoft Power BI wordt gebruikt om het Datawarehouse, measures in DAX en de visualisaties uit te werken. Op basis van de requirements worden onder meer de volgende onderdelen voorzien:
+\begin{itemize}
+  \item Een spelersoverzicht met filtermogelijkheden (seizoen, team, positie, leeftijd, minuten, enz.).
+  \item Detailpagina’s per speler met kernstatistieken en prestatie-indicatoren.
+  \item Vergelijkingsschermen waarin twee of meer spelers naast elkaar kunnen worden geplaatst.
+\end{itemize}
+In deze fase ligt de focus op het oplossingsdomein, het vertalen van de theoretische inzichten naar een concreet, interactief Power BI-prototype waarmee scouts spelers kunnen analyseren en vergelijken.
+
+\subsection{Fase 4: Evaluatie en gebruiksbeoordeling}
+In de vierde en laatste fase wordt het prototype geëvalueerd. Enerzijds gebeurt dit via technische tests, controle van datakwaliteit, juistheid van berekende indicatoren en performantie van de belangrijkste queries en visualisaties. Anderzijds wordt een beperkte gebruiksevaluatie uitgevoerd aan de hand van vooraf gedefinieerde use cases (zoals “vind een vervanger voor speler X” of “identificeer spelers met een bepaald profiel”). De evaluatie omvat:
+\begin{itemize}
+  \item Een verificatie of de omgeving toelaat om de vooropgestelde use cases uit te voeren.
+  \item Een korte, gestructureerde feedbackronde over bruikbaarheid, duidelijkheid en toegevoegde waarde van het dashboard.
+\end{itemize}
+Aan het einde van deze fase willen we een objectieve beschrijving geven van de sterktes en beperkingen van de ontwikkelde scoutingomgeving, aangevuld met aanbevelingen voor verdere uitbouw.
+
+\subsection{Tools}
+Het onderzoek zal gebruikmaken van courante data engineering- en BI-tools: Python pandas en SQL voor de dataverwerking, een relationele databank voor de opslag, en Microsoft Power BI als visualisatie laag voor het scoutingdashboard. Github wordt gebruikt voor versiebeheer van scripts en documentatie.
+
 

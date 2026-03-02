@@ -7,45 +7,17 @@
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
 
-Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
-
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
-
-\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
-
-Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{grail.jpg}
-  \caption[Voorbeeld figuur.]{\label{fig:grail}Voorbeeld van invoegen van een figuur. Zorg altijd voor een uitgebreid bijschrift dat de figuur volledig beschrijft zonder in de tekst te moeten gaan zoeken. Vergeet ook je bronvermelding niet!}
-\end{figure}
-
-\begin{listing}
-  \begin{minted}{python}
-    import pandas as pd
-    import seaborn as sns
-
-    penguins = sns.load_dataset('penguins')
-    sns.relplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
-  \end{minted}
-  \caption[Voorbeeld codefragment]{Voorbeeld van het invoegen van een codefragment.}
-\end{listing}
-
-\lipsum[7-20]
-
-\begin{table}
-  \centering
-  \begin{tabular}{lcr}
-    \toprule
-    \textbf{Kolom 1} & \textbf{Kolom 2} & \textbf{Kolom 3} \\
-    $\alpha$         & $\beta$          & $\gamma$         \\
-    \midrule
-    A                & 10.230           & a                \\
-    B                & 45.678           & b                \\
-    C                & 99.987           & c                \\
-    \bottomrule
-  \end{tabular}
-  \caption[Voorbeeld tabel]{\label{tab:example}Voorbeeld van een tabel.}
-\end{table}
+Met de opkomst van geavanceerde data analyse en business intelligence zoeken steeds meer basketbalclubs naar manieren om hun scouting te verbeteren en datagedreven te ondersteunen \autocite{iglesiasdata}. Sportorganisaties beschikken tegenwoordig over grote hoeveelheden data, maar worstelen vaak met het vertalen van data naar bruikbare inzichten voor scouts \autocite{demenius2017benefits}. In dit onderzoek ligt de focus op een datagedreven scoutingomgeving die deze data vertaalt om beslissingen rond spelers in de BNXT league beter te onderbouwen.
+\\\\
+Een recente studie over data gebaseerde beslissingen binnen teams toont aan dat nog veel clubs hun beslissingen baseren op wat ze observeren, persoonlijke netwerken en andere informatiebronnen \autocite{iglesiasdata}. Deze studie stelt ook dat het aantrekken van spelers een gestructureerd proces is waarin sportieve prestaties, fysieke eigenschappen, financiële omstandigheden en contextuele elementen samenkomen. Aan de andere kant wordt data-based decision-making beschreven als een iteratief proces dat kwantitatieve gegevens en kennis van het domein verenigt onder tijdsdruk en onzekerheid. De kwalitatieve analyse met managers, coaches en scouts toont daarnaast aan dat veel Europese clubs geen samenhangend dataplatform of formeel beslissingskader hanteren, wat het lastig maakt om mogelijke aanwervingen op een systematische manier te vergelijken en de genomen beslissingen te herhalen \autocite{iglesiasdata}.
+\\\\
+Onderzoek in de hoogste basketbalklasse van Litouwen laat zien dat managers en coaches overwegend positief staan tegenover geavanceerde basketbalanalyses, omdat gedetailleerde statische analyses helpen om teamperformantie beter te begrijpen en spelersmarktwaarde nauwkeuriger te bepalen. Tegelijk geeft deze studie aan dat de grootste nood niet alleen ligt bij meer data, maar vooral ook bij het vertalen van deze data naar inzichten aan de hand van visualisaties en dashboards \autocite{demenius2017benefits}.
+\\\\
+In de sportwetenschappelijke sector analyseren systematische studies en meta analyses over talentidentificatie in basketbal de essentiële antropometrische, fysiologische en fysieke elementen die elite spelers van spelers onderscheiden\autocite{han2023basketball}. Deze beoordelingen laten zien dat factoren zoals lengte, lichaamsmassa, sprongkracht, snelheid en uithoudingsvermogen aanzienlijke variaties in prestaties vertonen, waardoor ze cruciale criteria zijn voor selectie en ontwikkeling op de lange termijn in een scoutingsetting. Aanvullend identificeren studies naar key performance indicators bij NBA-spelers wedstrijdstatistieken zoals effective field-goal percentage, true shooting percentage, turnoverpercentage, offensive en defensive rating en plus/minus-varianten als cruciale indicatoren voor spelersimpact en rol in het team  \autocite{dehesa2019key}. Deze resultaten wijzen erop dat een hedendaagse scoutingomgeving zowel fysieke criteria als geavanceerde wedstrijdstatistieken moet combineren om spelersprofielen te beoordelen \autocite{han2023basketball}.
+\\\\
+In de literatuur wordt naast het beschrijven van de huidige praktijk ook gezocht naar richtlijnen om beslissingen met betrekking tot spelers systematischer te ondersteunen. Iglesias presenteert een framework waarin de kwaliteit van gegevens, informatiestromen, menselijke expertise en organisatorische processen worden samengevoegd in een toekomstgericht beslissingskader voor de rekrutering van spelers \autocite{iglesiasdata}. Dit kader vertrekt vanuit het idee van decision support en business intelligence, en benadrukt het belang van transparante informatie, duidelijke visualisaties en een iteratief evaluatieproces met stakeholders.
+\\\\
+Daarnaast laten management- en analysestudies zien dat strategische beslissingen met betrekking tot spelers en personeel steeds vaker worden genomen door middel van gestructureerde planning en selectie, waarbij zowel interne als externe analyses, financiële beperkingen en sportieve doelstellingen worden gecombineerd. Dit soort onderzoek illustreert dat datagedreven tools vooral succesvol zijn wanneer ze analytische informatie combineren met de expertise van scouts, coaches en managers, in plaats van die te vervangen.\autocite{banucha2025strategic}
+\\\\
+Op basis van deze literatuur wordt duidelijk dat er enerzijds een goed beeld bestaat van relevante factoren en knelpunten in basketbalrekrutering, en anderzijds bouwstenen beschikbaar zijn voor datagedreven besluitvorming en analytische ondersteuning. Desondanks worden specifieke toepassingen doorgaans gepresenteerd op het niveau van grote competities of op abstract procesniveau, en er is weinig onderzoek gedaan naar een geïntegreerde scoutingomgeving voor een specifieke competitie, zoals de BNXT League. Deze bachelorproef richt zich op die tekortkoming door een proof-of-concept te creëren waarin BNXT-wedstrijd- en spelersstatistieken gezamenlijk worden georganiseerd en via een dashboard toegankelijk zijn, zodat scouts spelers duidelijker en herhaaldelijk kunnen analyseren en vergelijken.
 
