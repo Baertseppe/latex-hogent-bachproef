@@ -7,17 +7,207 @@
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
 
-Met de opkomst van geavanceerde data analyse en business intelligence zoeken steeds meer basketbalclubs naar manieren om hun scouting te verbeteren en datagedreven te ondersteunen \autocite{iglesiasdata}. Sportorganisaties beschikken tegenwoordig over grote hoeveelheden data, maar worstelen vaak met het vertalen van data naar bruikbare inzichten voor scouts \autocite{demenius2017benefits}. In dit onderzoek ligt de focus op een datagedreven scoutingomgeving die deze data vertaalt om beslissingen rond spelers in de BNXT league beter te onderbouwen.
-\\\\
-Een recente studie over data gebaseerde beslissingen binnen teams toont aan dat nog veel clubs hun beslissingen baseren op wat ze observeren, persoonlijke netwerken en andere informatiebronnen \autocite{iglesiasdata}. Deze studie stelt ook dat het aantrekken van spelers een gestructureerd proces is waarin sportieve prestaties, fysieke eigenschappen, financiële omstandigheden en contextuele elementen samenkomen. Aan de andere kant wordt data-based decision-making beschreven als een iteratief proces dat kwantitatieve gegevens en kennis van het domein verenigt onder tijdsdruk en onzekerheid. De kwalitatieve analyse met managers, coaches en scouts toont daarnaast aan dat veel Europese clubs geen samenhangend dataplatform of formeel beslissingskader hanteren, wat het lastig maakt om mogelijke aanwervingen op een systematische manier te vergelijken en de genomen beslissingen te herhalen \autocite{iglesiasdata}.
-\\\\
-Onderzoek in de hoogste basketbalklasse van Litouwen laat zien dat managers en coaches overwegend positief staan tegenover geavanceerde basketbalanalyses, omdat gedetailleerde statische analyses helpen om teamperformantie beter te begrijpen en spelersmarktwaarde nauwkeuriger te bepalen. Tegelijk geeft deze studie aan dat de grootste nood niet alleen ligt bij meer data, maar vooral ook bij het vertalen van deze data naar inzichten aan de hand van visualisaties en dashboards \autocite{demenius2017benefits}.
-\\\\
-In de sportwetenschappelijke sector analyseren systematische studies en meta analyses over talentidentificatie in basketbal de essentiële antropometrische, fysiologische en fysieke elementen die elite spelers van spelers onderscheiden\autocite{han2023basketball}. Deze beoordelingen laten zien dat factoren zoals lengte, lichaamsmassa, sprongkracht, snelheid en uithoudingsvermogen aanzienlijke variaties in prestaties vertonen, waardoor ze cruciale criteria zijn voor selectie en ontwikkeling op de lange termijn in een scoutingsetting. Aanvullend identificeren studies naar key performance indicators bij NBA-spelers wedstrijdstatistieken zoals effective field-goal percentage, true shooting percentage, turnoverpercentage, offensive en defensive rating en plus/minus-varianten als cruciale indicatoren voor spelersimpact en rol in het team  \autocite{dehesa2019key}. Deze resultaten wijzen erop dat een hedendaagse scoutingomgeving zowel fysieke criteria als geavanceerde wedstrijdstatistieken moet combineren om spelersprofielen te beoordelen \autocite{han2023basketball}.
-\\\\
-In de literatuur wordt naast het beschrijven van de huidige praktijk ook gezocht naar richtlijnen om beslissingen met betrekking tot spelers systematischer te ondersteunen. Iglesias presenteert een framework waarin de kwaliteit van gegevens, informatiestromen, menselijke expertise en organisatorische processen worden samengevoegd in een toekomstgericht beslissingskader voor de rekrutering van spelers \autocite{iglesiasdata}. Dit kader vertrekt vanuit het idee van decision support en business intelligence, en benadrukt het belang van transparante informatie, duidelijke visualisaties en een iteratief evaluatieproces met stakeholders.
-\\\\
-Daarnaast laten management- en analysestudies zien dat strategische beslissingen met betrekking tot spelers en personeel steeds vaker worden genomen door middel van gestructureerde planning en selectie, waarbij zowel interne als externe analyses, financiële beperkingen en sportieve doelstellingen worden gecombineerd. Dit soort onderzoek illustreert dat datagedreven tools vooral succesvol zijn wanneer ze analytische informatie combineren met de expertise van scouts, coaches en managers, in plaats van die te vervangen.\autocite{banucha2025strategic}
-\\\\
-Op basis van deze literatuur wordt duidelijk dat er enerzijds een goed beeld bestaat van relevante factoren en knelpunten in basketbalrekrutering, en anderzijds bouwstenen beschikbaar zijn voor datagedreven besluitvorming en analytische ondersteuning. Desondanks worden specifieke toepassingen doorgaans gepresenteerd op het niveau van grote competities of op abstract procesniveau, en er is weinig onderzoek gedaan naar een geïntegreerde scoutingomgeving voor een specifieke competitie, zoals de BNXT League. Deze bachelorproef richt zich op die tekortkoming door een proof-of-concept te creëren waarin BNXT-wedstrijd- en spelersstatistieken gezamenlijk worden georganiseerd en via een dashboard toegankelijk zijn, zodat scouts spelers duidelijker en herhaaldelijk kunnen analyseren en vergelijken.
+Met de opkomst van geavanceerde data-analyse en business intelligence (BI) zoeken
+steeds meer basketbalclubs naar manieren om hun scouting te verbeteren en
+datagedreven te ondersteunen~\autocite{iglesiasdata}. Sportorganisaties beschikken
+tegenwoordig over grote hoeveelheden data, maar worstelen vaak met het vertalen
+van die data naar bruikbare inzichten voor scouts~\autocite{demenius2017benefits}.
+In dit onderzoek wordt de nadruk gelegd op een datagedreven scoutingomgeving die
+deze data vertaalt om beslissingen rond spelers in de BNXT League beter te
+onderbouwen.
 
+\subsection{Scouting en besluitvorming in professioneel basketbal}%
+\label{subsec:scouting-besluitvorming}
+
+Een recente studie over datagedreven besluitvorming binnen Europese basketbalteams
+toont aan dat nog veel clubs hun beslissingen baseren op observaties, persoonlijke
+netwerken en andere informele informatiebronnen~\autocite{iglesiasdata}. Deze studie
+benadrukt ook dat het aantrekken van spelers een gestructureerd proces is waarin
+sportieve prestaties, fysieke eigenschappen, financiële omstandigheden en
+contextuele elementen samenkomen. Aan de andere kant wordt data-based decision
+making beschreven als een iteratief proces dat kwantitatieve gegevens en
+domeinkennis verenigt onder tijdsdruk en onzekerheid~\autocite{iglesiasdata}.
+
+Analyses met managers, coaches en scouts tonen daarbij aan dat veel Europese clubs
+geen vast stramien hebben als het gaat over beslissingen nemen aan de hand van
+data, wat het lastig maakt om rekruteringen binnen de ploeg te reproduceren of te
+vergelijken. Onderzoek in de hoogste basketbalklasse van Litouwen laat zien dat
+managers en coaches overwegend positief staan tegenover geavanceerde
+basketbalanalyses, omdat gedetailleerde statistische analyses helpen om
+teamperformantie beter te begrijpen en spelersmarktwaarde nauwkeuriger te bepalen.
+Tegelijk geeft deze studie aan dat de grootste nood niet alleen ligt bij meer data,
+maar vooral ook bij het vertalen van deze data naar inzichten aan de hand van
+visualisaties en dashboards~\autocite{demenius2017benefits}.
+
+Aansluitend tonen management- en analysestudies dat strategische beslissingen met
+betrekking tot spelers en technische staf steeds vaker worden genomen op basis van
+gestructureerde planning en selectie, waarbij verschillende factoren zoals interne en
+externe analyses, financiële beperkingen en sportieve doelstellingen worden
+gecombineerd~\autocite{banucha2025strategic}. Dit soort onderzoek benadrukt dat
+datagedreven tools vooral succesvol zijn als ze worden gecombineerd met de ervaring
+van experten binnen een bepaald vakgebied, in plaats van die expertise volledig te
+vervangen~\autocite{banucha2025strategic}. Een recent onderzoek over de opkomst van
+sportanalyses in het Europese basketbal sluit daarbij aan: clubs die investeren in
+analyseplatformen rapporteren dat beslissingen sneller en meer consistent worden
+genomen, en dat de communicatie tussen scouts, coaches en management verbetert
+door het gebruik van een gedeeld referentiekader~\autocite{eurobasket2026}.
+
+\subsection{Beschikbaarheid en kwaliteit van data}%
+\label{subsec:databeschikbaarheid}
+
+Een tweede aandachtspunt is de beschikbaarheid van wedstrijd- en spelersdata en
+de kwaliteit hiervan. In tegenstelling tot grote competities zoals de National
+Basketball Association (NBA), waar uitgebreide play-by-play trackingdata en
+geavanceerde metrische systemen in ruime mate beschikbaar zijn, is de situatie voor
+Europese competities op een lager niveau aanzienlijk beperkter~\autocite{dehesa2019key}.
+De basisstatistieken zoals punten, rebounds en assists zijn doorgaans beschikbaar
+via publieke platformen, maar meer geavanceerde indicatoren zoals field goal
+percentage, usage rate of plus/minus moeten vaak manueel worden berekend op
+basis van ruwe boxscore-informatie. Boxscore-informatie is de samenvatting die na
+elke wedstrijd beschikbaar is, met daarin alle individuele en teamprestaties per
+kwart.
+
+Een wederkerend probleem bij het werken met meerdere databronnen in de
+sportanalysewereld is de inconsistentie tussen de verschillende bronnen op vlak van
+naamgeving, opmaak en granulariteit van de data. Onderzoek naar
+datakwaliteitsverbeteringen via Extract, Transform, Load (ETL)-processen toont aan
+dat ontbrekende waarden, duplicates en niet-gestandaardiseerde veldnamen behoren
+tot de meest voorkomende hindernissen bij het opbouwen van een betrouwbare
+datalaag~\autocite{Meegle2026}. Dergelijke problemen vereisen gerichte stappen voor
+het opkuisen en valideren van de data vooraleer die geschikt is voor analyse, wat
+ETL-pipelines tot een van de essentiëlste componenten maakt van een datagedreven
+omgeving. In de context van sportanalyse beveelt de literatuur aan om per entiteit
+--- speler, team, wedstrijd en seizoen --- aparte dimensies te definiëren en te
+documenteren, zodat de herkomst van de data traceerbaar en reproduceerbaar
+blijft~\autocite{Meegle2026}.
+
+\subsection{Relevante prestatie-indicatoren voor basketbalscouting}%
+\label{subsec:prestatie-indicatoren}
+
+Een centraal thema in de literatuurstudie is de vraag welke statistieken en
+prestatie-indicatoren van belang zijn voor het analyseren en vergelijken van spelers.
+Systematische studies en analyses over talentidentificatie in basketbal identificeren
+de essentiële antropometrische, fysiologische en fysieke eigenschappen die
+elitespelers van gemiddelde spelers onderscheiden~\autocite{han2023basketball}.
+Factoren zoals lengte, gewicht, sprongkracht, snelheid en uithoudingsvermogen
+vertonen aanzienlijke variaties en zijn daarmee cruciale criteria voor selectie en
+ontwikkeling op lange termijn in een scoutingsetting~\autocite{han2023basketball}.
+
+Aanvullend identificeren studies naar key performance indicators bij NBA-spelers
+geavanceerde wedstrijdstatistieken zoals field goal percentage (FG\%), true shooting
+percentage (TS\%), turnoverpercentage, offensive rating, defensive rating en
+plus/minus-varianten als cruciale indicatoren voor spelersimpact en
+teamrol~\autocite{dehesa2019key}. Een reviewstudie over de evaluatie van
+basketbalspelers en teamprestaties bevestigt dat het combineren van traditionele
+boxscore-statistieken met geavanceerde efficiëntiecijfers een genuanceerder beeld
+geeft van de werkelijke bijdrage van een speler dan afzonderlijke ruwe
+totalen~\autocite{sarlis2020sports}. Moderne analytische systemen zijn daarbij
+overgestapt van absolute totalen naar \textit{per 100 bezittingen} genormaliseerde
+statistieken, wat spelers uit systemen met een verschillend tempo eerlijk
+vergelijkbaar maakt~\autocite{nbastuffer}.
+
+Een andere systematische review over performantieanalyse in basketbal benadrukt
+bovendien dat de keuze van indicatoren sterk positieafhankelijk is: voor grote
+spelers wegen interior scoring en reboundpercentages zwaarder, terwijl voor
+kleinere spelers de assist-to-turnover ratio en driepuntsefficiëntie meer
+onderscheidend zijn~\autocite{Chen2025}. Deze positiedifferentiatie is relevant
+voor de opzet van een scoutingomgeving, omdat een uniforme rangschikking van
+alle spelers op identieke indicatoren tot misleidende conclusies kan leiden. Een
+hedendaagse scoutingomgeving moet dus zowel generieke als positiespecifieke
+indicatoren aanbieden om spelersprofielen eerlijk en volledig te
+beoordelen~\autocite{han2023basketball}.
+
+\subsection{Spelerssegmentatie via machine learning}%
+\label{subsec:clustering}
+
+Naast het gebruik van individuele prestatie-indicatoren toont de literatuur een
+groeiende interesse in het toepassen van unsupervised machine learning, meer
+bepaald clusteringmethoden, om spelers op basis van speelstijl en statistisch
+profiel te groeperen. Een studie naar clusteranalyse van basketbalspelers per
+positie toont aan dat traditionele positie-indelingen --- point guard, shooting
+guard, forward en center --- onvoldoende de werkelijke speelstijlen van spelers
+weerspiegelen in het hedendaagse basketbal~\autocite{Baumann2022}. Door k-means
+of hiërarchische clustering toe te passen op een combinatie van wedstrijd- en
+fysieke statistieken kunnen spelers worden gegroepeerd in functionele profielen
+die beter aansluiten op de tactische behoeften van een team.
+
+\textcite{Baumann2022} stelt voor om clustering niet enkel te gebruiken voor
+categorisering, maar ook als rankinginstrument: binnen elke cluster worden spelers
+verder geordend op basis van hun relatieve prestatie ten opzichte van hun
+stijlgroep, wat een genuanceerder vergelijkingskader oplevert dan een globale
+rangschikking. Deze benadering sluit nauw aan bij de doelstelling van deze
+bachelorproef: spelers niet enkel op absolute statistieken vergelijken, maar ook
+kunnen identificeren welke spelers het sterkst presteren binnen een vergelijkbaar
+profiel of rol. In de BNXT-context biedt dit scouts de mogelijkheid om een
+functionele vervanger voor een speler te zoeken, eerder dan een statistisch
+identieke kloon.
+
+\subsection{Data-architectuur en dashboardontwerp voor scouting}%
+\label{subsec:architectuur-dashboard}
+
+Het oplossingsdomein van dit onderzoek richt zich op de technische en
+ontwerpmatige vraag hoe een data-architectuur en -pipeline kunnen worden opgezet
+om BNXT-statistieken centraal te verzamelen, op te schonen en beschikbaar te
+maken voor analyse. In de literatuur over business intelligence en
+sportdata-engineering wordt een datawarehouse-aanpak algemeen beschouwd als de
+meest geschikte architectuur voor dit soort toepassingen~\autocite{iglesiasdata}.
+Het sterschema biedt hierbij een flexibele en performante basis voor rapportage en
+filtering: een centrale feitentabel met wedstrijdstatistieken wordt omringd door
+dimensietabellen voor spelers, teams, wedstrijden en seizoenen~\autocite{Meegle2026}.
+
+Voor de visuele laag tonen studies aan dat scouts en sportief managers nood hebben
+aan interactieve dashboards die filteren, sorteren en vergelijken mogelijk
+maken~\autocite{demenius2017benefits}. Microsoft Power BI is in die context een
+breed toegepast platform binnen sportorganisaties, omwille van de mogelijkheid om
+via DAX geavanceerde berekeningen te definiëren bovenop een gemodelleerde
+datalaag, gecombineerd met een laagdrempelige interactieve
+rapportagefunctionaliteit~\autocite{Forouhandeh2025}. Concrete toepassingen in
+sportorganisaties laten zien dat Power BI-dashboards met spelersoverzichten,
+filtermogelijkheden op positie en seizoen, en side-by-side vergelijkingsschermen de
+meeste operationele waarde bieden voor scouts en analytici~\autocite{Forouhandeh2025}.
+
+\textcite{iglesiasdata} presenteert een framework waarin de kwaliteit van gegevens,
+informatiestromen, menselijke expertise en organisatorische processen worden
+samengevoegd in een toekomstgericht beslissingskader voor spelersrekrutering. Dit
+kader benadrukt het belang van transparante informatie, duidelijke visualisaties en
+een iteratief evaluatieproces met belanghebbenden, wat aansluit bij de doelstelling
+van deze bachelorproef om een proof-of-concept te realiseren dat scouts en
+data-analisten actief ondersteunt in hun werkproces.
+
+\subsection{Meerwaarde en beperkingen van datagedreven scouting}%
+\label{subsec:meerwaarde-beperkingen}
+
+Op basis van de bestaande literatuur wordt de meerwaarde van datagedreven
+scoutingomgevingen ten opzichte van de huidige, meer intuïtieve benadering breed
+bevestigd. Een rankingmethodestudie voor basketbalspelers op basis van
+data-analytische technieken toont aan dat een gestructureerd scoresysteem coaches
+en scouts in staat stelt om snel en herhaalbaar relevante spelers te identificeren op
+basis van gewogen prestatie-indicatoren, wat de tijdsinvestering per
+rekruteringsopdracht significant verlaagt~\autocite{Vadruccio2018}.
+\textcite{banucha2025strategic} bevestigen dat gestructureerde spelerselectie,
+ondersteund door data, leidt tot beter afgestemde rekruteringsbeslissingen die
+rekening houden met zowel sportieve als organisatorische doelstellingen.
+
+Tegelijk wijzen meerdere studies op de beperkingen van een puur kwantitatieve
+aanpak. Statistische modellen en dashboards bieden een objectief en herhaalbaar
+kader, maar kunnen context, speelstijl, teamchemie en persoonlijkheidskenmerken
+van spelers slechts beperkt vatten~\autocite{han2023basketball}. Een Delphi-studie
+onder elitecoaches bevestigt bovendien dat psychologische kenmerken en game
+intelligence door coaches als even belangrijk of zelfs belangrijker worden beoordeeld
+dan fysieke indicatoren voor spelersselectie, maar dat deze kenmerken het moeilijkst
+objectief te meten zijn~\autocite{Rogers2021}. De meest succesvolle implementaties
+combineren dan ook kwantitatieve analyse met kwalitatieve domeinexpertise, waarbij
+het dashboard functioneert als een beslissingsondersteunend hulpmiddel dat de scout
+informeert, maar niet vervangt~\autocite{banucha2025strategic}.
+
+Op basis van deze literatuur wordt duidelijk dat er enerzijds een goed beeld bestaat
+van de relevante factoren en knelpunten in basketbalrekrutering, en anderzijds
+voldoende bouwstenen beschikbaar zijn voor datagedreven besluitvorming en
+analytische ondersteuning. Desondanks worden specifieke toepassingen doorgaans
+gepresenteerd op het niveau van grote competities of op abstract procesniveau, en
+is er weinig onderzoek gedaan naar een geïntegreerde scoutingomgeving voor een
+specifieke regionale competitie zoals de BNXT League. Deze bachelorproef richt
+zich op die tekortkoming door een proof-of-concept te creëren waarin
+BNXT-wedstrijd- en spelersstatistieken gezamenlijk worden georganiseerd en via
+een dashboard toegankelijk zijn, zodat scouts spelers duidelijker en herhaaldelijk
+kunnen analyseren en vergelijken.

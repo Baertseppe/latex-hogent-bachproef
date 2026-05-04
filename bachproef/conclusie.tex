@@ -14,5 +14,34 @@
 % Heeft het onderzoek geleid tot nieuwe vragen die uitnodigen tot verder 
 %onderzoek?
 
-\lipsum[76-80]
+De centrale onderzoeksvraag van deze bachelorproef luidde: \textit{Hoe kan een datagedreven scoutingomgeving voor de BNXT League worden ontworpen en gerealiseerd, zodat scouts spelers efficiënt kunnen analyseren en vergelijken op basis van relevante prestatie-indicatoren?}
+ 
+Op basis van het uitgevoerde onderzoek en de realisatie van het proof-of-concept kan deze vraag bevestigend worden beantwoord. Er werd een volledige, werkende scoutingomgeving gerealiseerd die bestaat uit een centrale datalaag in Microsoft SQL Server, een ETL-pipeline in Python en een interactief Power BI-dashboard met vijf functionele pagina's. De omgeving laat scouts en data-analisten toe om spelers te filteren op seizoen, team, positie, leeftijd, lengte en nationaliteit, individuele spelersprofielen te raadplegen met shooting gauges en een vergelijking met het leaguegemiddelde, twee spelers rechtstreeks naast elkaar te plaatsen via de Player Comparison pagina, en een shortlist van kandidaten op te bouwen via de Scouting Shortlist.
+ 
+\section*{Antwoord op de deelvragen}
+ 
+De eerste deelvraag: welke statistieken en prestatie-indicatoren relevant zijn voor BNXT-scouting, werd beantwoord via de literatuurstudie. Op basis van bestaand onderzoek naar talentidentificatie~\autocite{han2023basketball} en key performance indicators werden zowel antropometrische kenmerken (lengte, gewicht, leeftijd) als wedstrijdstatistieken (punten, rebounds, assists, steals, blocks, turnovers, shootingpercentages en efficiëntiescore) opgenomen in het model. De efficiëntiescore werd daarbij gekozen als samengestelde indicator die de globale prestatie van een speler samenvat.
+ 
+De tweede deelvraag: hoe historische data uit verschillende bronnen verzameld, opgeschoond en geïntegreerd kan worden, werd beantwoord via de ETL-pipeline. De combinatie van Python scrapers, fuzzy matching voor spelernamen en expliciete mappingtabellen voor teamnamen bleek noodzakelijk om de inconsistenties tussen de officiële BNXT-website en RealGM te overbruggen. In totaal werden meer dan tweehonderd naamkoppelingen opgebouwd, wat aantoont dat datakwaliteit in de praktijk een aanzienlijke tijdsinvestering vergt.
+ 
+De derde deelvraag: welke machine-learningmodellen ingezet kunnen worden voor het rangschikken en vergelijken van spelers, werd in de literatuurstudie theoretisch uitgewerkt. Clusteringmethoden zoals k-means blijken geschikt om spelers op basis van speelstijl te groeperen en functionele vervangers te identificeren. In het gerealiseerde prototype werd echter nog geen machine-learningcomponent geïntegreerd: de rangschikking op de Scouting Shortlist pagina is gebaseerd op direct sorteerbare statistieken. Dit vormt een bewuste afbakening van het prototype, maar ook een duidelijk verbeterpunt voor toekomstige versies.
+ 
+De vierde deelvraag: hoe een gebruiksvriendelijk Power BI-dashboard ontworpen kan worden, werd beantwoord via de implementatie van de vijf dashboardpagina's. De evaluatie toont aan dat alle vijf functionele requirements worden ingevuld. Een eerste gebruikstest met voorbeeldscenario's bevestigde dat de omgeving typische scoutingvragen kan ondersteunen, zoals het identificeren van spelers met een bepaald statistisch profiel of het vinden van een functionele vervanger voor een vertrekkende speler.
+ 
+De vijfde deelvraag: wat de meerwaarde is ten opzichte van de huidige, meer intuïtieve benadering, kan op basis van de literatuur en de evaluatie positief worden beantwoord. Waar scouts vandaag werken met losse Excel-bestanden en meerdere websites, biedt de gerealiseerde omgeving één centraal platform met gestandaardiseerde, herhaalbare analyses. Beslissingen kunnen sneller en transparanter worden onderbouwd.
+ 
+\section*{Kritische reflectie}
+ 
+Het resultaat sluit grotendeels aan bij de vooropgestelde verwachtingen, maar er zijn ook beperkingen die eerlijk benoemd moeten worden.
+ 
+Ten eerste werd de machine-learningcomponent niet geïntegreerd in het finale prototype. Hoewel de literatuur aantoont dat clusteringmethoden waardevolle inzichten kunnen opleveren, vroeg de realisatie van een correcte datalaag en een volledig functioneel dashboard al de nodige tijd en technische aandacht. De keuze om te focussen op een robuust datamodel en een bruikbaar dashboard is te verdedigen vanuit de doelstelling van een proof-of-concept, maar maakt de omgeving op dit moment minder onderscheidend ten opzichte van generieke rapportagetools.
+ 
+Ten tweede is de gebruiksevaluatie beperkt gebleven tot interne tests op basis van vooraf gedefinieerde use cases. Een volwaardige gebruikersstudie met scouts of data-analisten van BNXT-clubs zou een objectievere beoordeling van bruikbaarheid en toegevoegde waarde opleveren. De literatuur benadrukt dat datagedreven tools pas écht succesvol zijn wanneer ze aansluiten bij de werkprocessen en behoeften van de eindgebruiker.
+ 
+Ten derde dekt de huidige omgeving enkel traditionele boxscore statistieken. Meer geavanceerde indicatoren zoals usage rate, true shooting percentage of plus/minus-varianten zijn wel beschreven in de literatuur, maar konden niet worden berekend op basis van de beschikbare ruwe data. Dit beperkt de diepgang van de spelersanalyse, zeker voor het vergelijken van spelers uit teams met een sterk verschillend tempo of speelstijl.
+ 
+\section*{Bijdrage aan het onderzoeksdomein}
+ 
+De bijdrage van deze bachelorproef situeert zich op het snijpunt van data-engineering, business intelligence en sportanalyse. De literatuur over datagedreven scouting focust doorgaans op grote competities zoals de NBA of op abstract procesniveau. Deze bachelorproef toont aan dat een gelijkaardig geïntegreerd platform ook haalbaar is voor een regionale competitie met beperkte middelen en publiek beschikbare data. Het sterschema, de ETL-pipeline en het dashboardontwerp kunnen dienen als vertrekpunt voor andere Europese competities die een soortgelijke omgeving willen opzetten.
+ 
 

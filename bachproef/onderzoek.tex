@@ -1,0 +1,82 @@
+\chapter{\IfLanguageName{dutch}{Onderzoek}{Research}}%
+\label{ch:onderzoek}
+
+Zoals beschreven in de methodologie start het onderzoek na de literatuurstudie met het in kaart brengen van de beschikbare databronnen voor de BNXT League en het opstellen van een requirementsanalyse voor de scoutingomgeving. In dit hoofdstuk wordt eerst toegelicht hoe de data verzameld en gemodelleerd werd. Daarna volgt een beschrijving van de functionele vereisten die als basis dienden voor het ontwerp van het dashboard.
+
+\section{Databronnen en dataverzameling}%
+\label{sec:databronnen}
+
+Voor dit onderzoek wordt gewerkt met historische wedstrijd- en spelersgegevens uit de BNXT League. De kern van de data komt uit publieke bronnen zoals de officiële BNXT league competitie en RealGM, die per seizoen gedetailleerde spelersstatistieken en spelersprofielen bijhouden voor verschillende competities, waaronder de BNXT League. Deze bronnen zijn gekozen omdat ze consistente, gestandaardiseerde statistieken aanbieden per speler per wedstrijd, wat essentieel is voor een betrouwbare datagedreven analyse.
+
+De dataverzameling gebeurt via Python scrapers. Aangezien de spelerspagina's op RealGM gebruikmaken van een filterbalk waarbij elk seizoen een eigen URL-structuur heeft, wordt een script ontwikkeld dat automatisch alle relevante seizoenen doorloopt. Per seizoen worden de lijsten met spelers ingelezen en wordt voor elke speler de detailpagina bezocht om bijkomende informatie op te halen, zoals geboortedatum, lengte, nationaliteit en positie.
+
+Naast de spelersprofielen worden ook de wedstrijdstatistieken per speler per wedstrijd opgehaald via de officiële BNXT leauge website. Deze omvatten onder meer punten, rebounds, assists, steals, blocks, turnovers, gespeelde minuten en de pogingen en treffers voor tweepunters, driepunters en vrijworpen. Hierdoor kan later in Power BI gewerkt worden met zowel ruwe telwaarden als afgeleide percentages.
+
+De ruwe data wordt in eerste instantie opgeslagen in CSV-bestanden, zodat de tussenstappen transparant gedocumenteerd zijn. Vanuit deze CSV-bestanden worden de gegevens vervolgens ingeladen in Microsoft SQL Server, waar het definitieve datawarehouse wordt opgebouwd.
+
+\section{Opschoning van spelers- en teamnamen}%
+\label{sec:data-cleaning}
+
+Omdat de data voor deze bachelorproef uit meerdere bronnen afkomstig is, was een grondige opschoning van namen noodzakelijk. De wedstrijdstatistieken en spelersprofielen werden opgebouwd uit zowel de officiële BNXT League-website als RealGM, waardoor spelers- en teamnamen niet altijd exact overeenkwamen.
+
+Voor de spelerdimensie werd gewerkt met enerzijds een ruwe spelerslijst en anderzijds de spelersnamen zoals ze in de wedstrijdstatistieken voorkomen. In de praktijk bleken er tal van kleine verschillen te zijn tussen beide, onder meer door typfouten, andere schrijfwijzen, verschillen in volgorde van voor- en achternaam, gebruik van initialen en accenten in namen. Om deze verschillen op te vangen, werd in Python een combinatie gebruikt van systematische normalisatie (zoals het verwijderen van nummers in namen, het consistent maken van hoofdletters en het wegwerken van overbodige spaties) en fuzzy matching.
+
+Met behulp van een fuzzy matching algoritme werden voor alle spelers in de statistiekentabel de dichtstbijzijnde kandidaten in de spelerdimensie gezocht, inclusief een overeenkomstscore. Op basis van deze score werd een grenswaarde van 75~\% ingesteld, kandidaten met een overeenkomst van 75~\% of hoger werden beschouwd als voldoende zeker en automatisch opgenomen in een \texttt{stats\_naam\_mapping}-dictionary, terwijl lagere scores manueel nagekeken werden. In totaal werden zo meer dan tweehonderd mappings opgebouwd, waarbij veelvoorkomende varianten zoals \textit{``James Blackmon''} en \textit{``James Blackmon, Jr.''} of \textit{``Osunbowale Osunniyi''} en \textit{``Osun Osunniyi''} aan elkaar gekoppeld werden. Voor een klein aantal moeilijke gevallen werd handmatig beslist of het om dezelfde speler ging en werden ontbrekende spelers expliciet toegevoegd aan de spelerdimensie. Dankzij deze aanpak bleven er uiteindelijk geen ongematchte spelers meer over tussen de opgeschoonde feitentabel en de spelerdimensie, waardoor joinen op naam in het datawarehouse betrouwbaar werd.
+
+Naast spelersnamen moesten ook teamnamen opgeschoond worden. In de BNXT context veranderen clubs regelmatig van naam door wisselende hoofdsponsors, waardoor dezelfde ploeg in de data onder verschillende namen kan voorkomen, zoals \textit{``Yoast United''} en \textit{``QSTA United''}, of \textit{``Aris Leeuwarden''} en \textit{``LWD Basket''}. Bovendien kwamen sommige clubs in de ruwe data voor met kleine typfouten of alternatieve schrijfwijzen. Hiervoor werd eerst een script ontwikkeld dat alle unieke teamnamen uit de ruwe statistiekentabel extraheert en in een voorlopige \texttt{dim\_team}-tabel plaatst.
+
+Vervolgens werd een handgemaakte \texttt{naam\_mapping}-dictionary opgebouwd waarin oude of afwijkende namen expliciet gemapt worden naar één naam. Zo worden bijvoorbeeld \textit{``Basketbal Academie Limburg''} en andere historische varianten teruggebracht tot \textit{``PrismaWorx BAL''}, en worden varianten van namen als \textit{``Spirou Charleroi''} en \textit{``Antwerp Giants''} gekoppeld aan respectievelijk \textit{``Val-Dieu Spirou Basket''} en \textit{``Windrose Giants Antwerp''}. Bij het opstellen van deze mapping is bewust gekozen om te normaliseren naar de meest recente of meest courante naam in de BNXT-periode, zodat de rapportering in Power BI aansluit bij de naamgeving die scouts en coaches vandaag herkennen.
+
+Het cleaning script past deze mapping systematisch toe op alle teamnamen in de ruwe statistiekentabel nog voordat de dimensiestabellen en feitentabel worden aangemaakt. Door deze combinatie van fuzzy matching voor spelersnamen en expliciete mappingtabellen voor teamnamen werd de ruwe data uit verschillende bronnen teruggebracht tot één consistente set van spelers- en teamidentiteiten, wat een noodzakelijke voorwaarde is voor betrouwbare vergelijkingen en dashboards in de verdere analyse.
+
+\section{Datamodellering en datawarehouse}%
+\label{sec:datawarehouse}
+
+Bij de modellering van de data is gekozen voor een klassiek sterschema, omdat dit type model goed aansluit bij rapportering en analytische workloads. De centrale feitentabel \texttt{fact\_stats} bevat de wedstrijdstatistieken per speler per seizoen. Elke rij in deze tabel stelt de prestaties van één speler in één wedstrijd voor en bevat onder meer de volgende velden:
+
+\begin{itemize}
+  \item verwijzingen naar de betrokken speler, ploeg, wedstrijd en seizoen.
+  \item ruwe statistieken zoals punten, rebounds, assists, steals, blocks, turnovers en gespeelde minuten.
+  \item shootingstatistieken (pogingen en treffers voor 2P, 3P en FT).
+\end{itemize}
+
+Rond deze feitentabel worden verschillende dimensietabellen opgebouwd:
+\begin{itemize}
+  \item \texttt{dim\_player}: bevat per speler een unieke sleutel naam, geboortedatum, lengte, nationaliteit en positie. Op basis van \texttt{BirthDate} wordt in Power Query een extra kolom \texttt{Age} berekend, zodat leeftijd en leeftijdscategorie eenvoudig als filter gebruikt kunnen worden.
+  \item \texttt{dim\_team}: bevat informatie over de teams, zoals teamnaam en land.
+  \item \texttt{dim\_season}: beschrijft de seizoenen (bijvoorbeeld 2021--2022 t.e.m. 2025--2026) en bevat onder meer een vlag \texttt{Is\_Current\_Season} om het huidige seizoen snel te kunnen aanduiden in Power BI.
+  \item \texttt{dim\_games}: bevat wedstrijdspecifieke informatie, zoals datum, thuis- en uitploeg, eindscore en fase (reguliere competitie of play-offs).
+\end{itemize}
+
+Voor de spelersvergelijkingsfunctionaliteit wordt een duplicatie van de tabellen voorzien: \texttt{fact\_stats\_compare}, \texttt{dim\_player\_compare} en \texttt{dim\_team\_compare}. Deze bevatten dezelfde structuur als de oorspronkelijke feit- en dimensietabel, maar worden in Power BI via aparte relaties gekoppeld. Op die manier kunnen twee spelers onafhankelijk van elkaar geselecteerd worden zonder dat de filters van de eerste speler automatisch op de tweede speler worden toegepast.
+
+\section{Requirementsanalyse}%
+\label{sec:requirementsanalyse}
+
+Op basis van de literatuurstudie en een eerste verkenning van de BNXT-data wordt een requirementsanalyse opgesteld. Deze analyse beschrijft welke functionaliteiten de scoutingomgeving minimaal moet bieden en welke prestatie-indicatoren centraal staan.
+
+\subsection{Functionele requirements}
+
+De belangrijkste functionele requirements zijn:
+
+\begin{itemize}
+  \item \textbf{R1: Meervoudige filtering op spelerskenmerken.} De omgeving moet het mogelijk maken om spelers te filteren op seizoen, team, positie, leeftijd, lengte en nationaliteit. De lengte- en leeftijdslicer moeten een bereikselectie toelaten op basis van de minimale en maximale lengte- en leeftijd in de dataset.
+
+  \item \textbf{R2: League- en teamoverzicht.} Er moet een League Overview-pagina beschikbaar zijn die in een oogopslag de belangrijkste competitie KPI's toont (zoals gemiddelde punten, pace (snelheid van het spel), rebounds, assists en efficiëntiescore per team), aangevuld met een rangschikkingstabel en visualisaties van topscorers. Daarnaast moet een Team Dashboard pagina toelaten om één ploeg te selecteren en dieper in te zoomen op de prestaties van dat team in vergelijking met het leaguegemiddelde.
+
+  \item \textbf{R3: Individueel spelersprofiel.} Voor elke speler moet een Player Profile pagina beschikbaar zijn met basisgegevens (team, positie, leeftijd, lengte) en kernstatistieken. De pagina moet bovendien shooting gauges tonen voor tweepunt-, driepunt- en vrijwerppercentage, met duidelijke targetwaarden en een vergelijking met leaguegemiddelden.
+
+  \item \textbf{R4: Spelersvergelijking.} De omgeving moet het mogelijk maken om twee spelers naast elkaar te zetten en hun statistieken te vergelijken via spelerstatistieken zoals leeftijd, lengte en postie maar ook wedstrijdstatistieken en een side-by-side staafdiagram waarin het visueel gemakkelijk is om de spelers te vergelijken. Beide spelers moeten onafhankelijk geselecteerd kunnen worden via slicers.
+
+  \item \textbf{R5: Scouting shortlist.} Er moet een Scouting Shortlist pagina zijn met een grote overzichtstabel van alle spelers en hun belangrijkste statistieken, inclusief sorteer- en filtermogelijkheden. De tabel moet minstens kolommen bevatten voor punten, rebounds, assists, steals, blocks, efficiëntiescore, shootingpercentages en gespeelde wedstrijden.
+\end{itemize}
+
+\subsection{Niet-functionele requirements}
+
+Naast functionele eisen worden ook enkele niet-functionele requirements geformuleerd:
+
+\begin{itemize}
+  \item \textbf{Gebruiksvriendelijkheid.} De omgeving moet bruikbaar zijn voor niet-technische gebruikers zoals scouts en sportief verantwoordelijken. Filters en navigatie moeten intuïtief zijn en de belangrijkste inzichten moeten in één oogopslag zichtbaar zijn.
+  \item \textbf{Performantie.} Rapporten moeten vlot laden en reageren, ook wanneer er gefilterd wordt op specifieke spelers, teams of seizoenen. De gekozen datamodelstructuur en DAX-measures moeten efficiënte query's mogelijk maken.
+  \item \textbf{Transparantie.} De berekening van prestatie-indicatoren moet reproduceerbaar en uitlegbaar zijn. Waar mogelijk worden measures benoemd en gedocumenteerd op een manier die aansluit bij de definities uit de literatuur.
+\end{itemize}

@@ -26,44 +26,51 @@
 %% Maak voor elke fase (behalve het literatuuronderzoek) een NIEUW HOOFDSTUK aan
 %% en geef het een gepaste titel.
 
-Methodologie
 
-Het onderzoek is opgezet als een ontwerpgerichte en deels vergelijkende studie waarin een datagedreven scoutingomgeving voor de BNXT League wordt ontworpen, geïmplementeerd en geëvalueerd op basis van historische wedstrijd- en spelersstatistieken. De methode combineert een literatuurstudie, requirements analyse, de uitwerking van een datalaag en de bouw van een dashboard (proof-of-concept).
+Dit onderzoek wordt opgezet in vier opeenvolgende fasen. In dit hoofdstuk wordt het plan van aanpak in hoofdlijnen toegelicht, de inhoudelijke uitwerking van elke fase gebeurt in aparte hoofdstukken in deze bachelorproef.
 
-\subsection{Fase 1: Literatuurstudie en uitwerking deelvragen}
-In de eerste fase focussen we op de literatuurstudie, met name eerdere studies rond data-based decision-making in basketbalrekrutering, talentidentificatie, key performance indicators en strategische selectieprocessen. Deze fase richt zich vooral op de onderliggende vragen binnen het probleemdomein, zoals hoe rekrutering vandaag verloopt en welke statistieken relevant zijn voor spelersbeoordeling. De belangrijkste resultaten van deze fase zijn:
+\section{Fase 1: Literatuurstudie en uitwerking deelvragen}
+
+In de eerste fase focussen we op de literatuurstudie, met name eerdere studies rond data-based decision-making in basketbalrekrutering, talentidentificatie, key performance indicators en strategische selectieprocessen. Deze fase richt zich vooral op het probleemdomein: hoe scouting en rekrutering vandaag verlopen in basketbalclubs en welke statistieken in de literatuur naar voren worden geschoven als relevant voor spelersbeoordeling.De belangrijkste resultaten van deze fase zijn:
 \begin{itemize}
-  \item Een overzicht van relevante prestatie-indicatoren (fysiek en wedstrijd gebonden) voor scouting in basketbal.
-  \item Een set conceptuele bouwstenen en requirements voor een datagedreven scoutingomgeving.
+  \item een overzicht van relevante prestatie-indicatoren (fysiek en wedstrijdgebonden) voor scouting in basketbal.
+  \item een set conceptuele bouwstenen en requirements voor een datagedreven scoutingomgeving in de BNXT League.
 \end{itemize}
+De uitwerking van deze fase is beschreven in de literatuurstudie (Hoofdstuk~\ref{ch:stand-van-zaken}).
 
-\subsection{Fase 2: Dataverzameling, opschoning en modellering}
-In de tweede fase worden historische wedstrijd- en spelersgegevens uit de BNXT League verzameld uit publieke of aangeleverde bronnen. De ruwe gegevens worden opgeschoond, genormaliseerd en waar nodig verrijkt met afgeleide kolommen op basis van de literatuur. Voor deze fase worden onder meer de volgende tools gebruikt:
+\section{Fase 2: Dataverzameling, opschoning en modellering}
+
+In de tweede fase worden historische wedstrijd- en spelersgegevens uit de BNXT League verzameld uit publieke bronnen zoals RealGM en de officiële competitiesites. Via Python scrapers worden per seizoen de spelersprofielen (naam, geboortedatum, lengte, nationaliteit, positie) en de wedstrijdstatistieken (punten, rebounds, assists, steals, blocks, turnovers, minuten, schotpogingen en -percentages) opgehaald. De ruwe gegevens worden opgeschoond, genormaliseerd en waar nodig verrijkt met afgeleide kolommen, zoals leeftijd en efficiëntiescore.
+
+Voor deze fase worden onder meer de volgende tools gebruikt:
 \begin{itemize}
-  \item Python met pandas voor het opkuisen van de data en transformaties.
-  \item Microsoft SQL voor het modelleren en laden van de gegevens in een relationele databank.
-  \item Github voor versiebeheer van scripts en notebooks.
+  \item Python (met \texttt{pandas} en \texttt{nodriver}) voor webscraping, opschoning en transformaties.
+  \item Microsoft SQL Server voor het modelleren en laden van de gegevens in een relationele databank volgens een sterschema met \texttt{fact\_stats}, \texttt{dim\_player}, \texttt{dim\_team}, \texttt{dim\_season} en \texttt{dim\_games}.
 \end{itemize}
-Aan het einde van deze fase willen we een duidelijk gedocumenteerde dataset en datamodel bekomen, met een beschrijving van alle gebruikte tabellen en prestatie-indicatoren die het dashboard zullen voeden.
+Aan het einde van deze fase is er een duidelijk gedocumenteerde dataset en datamodel beschikbaar, met een beschrijving van de gebruikte tabellen en prestatie-indicatoren die het dashboard voeden (Hoofdstuk~\ref{ch:onderzoek}).
 
-\subsection{Fase 3: Ontwerp en implementatie van de scoutingomgeving}
-In de derde fase wordt de eigenlijke scoutingomgeving ontworpen en gerealiseerd als Power BI-dashboard bovenop de datalaag. Microsoft Power BI wordt gebruikt om het Datawarehouse, measures in DAX en de visualisaties uit te werken. Op basis van de requirements worden onder meer de volgende onderdelen voorzien:
+\section{Fase 3: Ontwerp en implementatie van de scoutingomgeving}
+
+In de derde fase wordt de eigenlijke scoutingomgeving ontworpen en gerealiseerd als Power BI-dashboard bovenop de datalaag. Microsoft Power BI wordt gebruikt om het datawarehouse te koppelen, measures in DAX te definiëren en de visualisaties uit te werken. Op basis van de requirements worden onder meer de volgende onderdelen voorzien:
 \begin{itemize}
-  \item Een spelersoverzicht met filtermogelijkheden (seizoen, team, positie, leeftijd, minuten, enz.).
-  \item Detailpagina’s per speler met kernstatistieken en prestatie-indicatoren.
-  \item Vergelijkingsschermen waarin twee of meer spelers naast elkaar kunnen worden geplaatst.
+  \item een League Overview pagina met KPI-kaarten en visualisaties op competitieniveau.
+  \item een Team Dashboard pagina met teamselectie, team KPI's en vergelijking met leaguegemiddelden.
+  \item detailpagina’s per speler (Player Profile) met kernstatistieken, shooting gauges en vergelijking met team- en leaguegemiddelden.
+  \item een Player Comparison pagina waarin twee spelers naast elkaar kunnen worden geplaatst in staafdiagrammen en worden weergegeven met hun statistieken.
+  \item een Scouting Shortlist-pagina met een uitgebreide tabel, filters op seizoen, team, positie, leeftijdscategorie, lengte en nationaliteit.
 \end{itemize}
-In deze fase ligt de focus op het oplossingsdomein, het vertalen van de theoretische inzichten naar een concreet, interactief Power BI-prototype waarmee scouts spelers kunnen analyseren en vergelijken.
+In deze fase ligt de focus op het oplossingsdomein, het vertalen van de theoretische inzichten en requirements naar een concreet, interactief Power BI-prototype waarmee scouts spelers kunnen analyseren en vergelijken (Hoofdstuk~\ref{ch:poc}).
 
-\subsection{Fase 4: Evaluatie en gebruiksbeoordeling}
-In de vierde en laatste fase wordt het prototype geëvalueerd. Enerzijds gebeurt dit via technische tests, controle van datakwaliteit, juistheid van berekende indicatoren en performantie van de belangrijkste queries en visualisaties. Anderzijds wordt een beperkte gebruiksevaluatie uitgevoerd aan de hand van vooraf gedefinieerde use cases (zoals “vind een vervanger voor speler X” of “identificeer spelers met een bepaald profiel”). De evaluatie omvat:
+\section{Fase 4: Evaluatie en gebruiksbeoordeling}
+
+In de vierde en laatste fase wordt het prototype geëvalueerd. Enerzijds gebeurt dit via technische tests op datakwaliteit, juistheid van berekende indicatoren (zoals shooting percentages en efficiëntiescores) en performantie van de belangrijkste queries en visualisaties. Anderzijds wordt een gerichte gebruiksevaluatie uitgevoerd aan de hand van vooraf gedefinieerde use cases, zoals “vind een vervanger voor speler X” of “identificeer spelers met een bepaald profiel”. De evaluatie omvat:
 \begin{itemize}
-  \item Een verificatie of de omgeving toelaat om de vooropgestelde use cases uit te voeren.
-  \item Een korte, gestructureerde feedbackronde over bruikbaarheid, duidelijkheid en toegevoegde waarde van het dashboard.
+  \item een verificatie of de omgeving toelaat om de vooropgestelde use cases effectief uit te voeren.
+  \item een gestructureerde feedbackronde over bruikbaarheid, duidelijkheid en toegevoegde waarde van het dashboard.
 \end{itemize}
-Aan het einde van deze fase willen we een objectieve beschrijving geven van de sterktes en beperkingen van de ontwikkelde scoutingomgeving, aangevuld met aanbevelingen voor verdere uitbouw.
+Aan het einde van deze fase wordt een objectieve beschrijving gegeven van de sterktes en beperkingen van de ontwikkelde scoutingomgeving, aangevuld met aanbevelingen voor verdere uitbouw (Hoofdstuk~\ref{ch:conclusie}).
 
-\subsection{Tools}
-Het onderzoek zal gebruikmaken van courante data engineering- en BI-tools: Python pandas en SQL voor de dataverwerking, een relationele databank voor de opslag, en Microsoft Power BI als visualisatie laag voor het scoutingdashboard. Github wordt gebruikt voor versiebeheer van scripts en documentatie.
+\section{Gebruikte tools}
 
+Het onderzoek maakt gebruik van courante data-engineering en Business Intelligence (BI) tools, Python, \texttt{pandas} en \texttt{nodriver} voor dataverzameling en -verwerking, Microsoft SQL Server als relationele databank voor het datawarehouse, en Microsoft Power BI als visualisatielaag voor het scoutingdashboard. 
 

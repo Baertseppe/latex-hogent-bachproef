@@ -1,0 +1,128 @@
+\chapter{\IfLanguageName{dutch}{Proof of Concept}{Proof of Concept}}%
+\label{ch:poc}
+
+In dit hoofdstuk wordt het ontwikkelde proof of concept van de scoutingomgeving beschreven. Het prototype bestaat uit een Power BI-dashboard bovenop het SQL Server datawarehouse. De omgeving omvat vijf hoofdpagina's: League Overview, Team Dashboard, Player Profile, Player Comparison en Scouting Shortlist.
+
+\section{Data-architectuur en ETL-pipeline}%
+\label{sec:architectuur}
+
+De ETL-pipeline is opgebouwd in Python. In een eerste stap haalt een scraper historische BNXT-data op van RealGM. Hiervoor wordt gebruikgemaakt van \texttt{requests} en \texttt{nodriver} om de dynamische seizoensfilters correct te doorlopen. Per seizoen worden de spelerslijsten ingelezen en worden de individuele spelerspagina's bezocht om bijkomende biografische informatie te verzamelen.
+
+De ruwe CSV's worden daarna met \texttt{pandas} opgeschoond: foute of ontbrekende waarden worden opgespoord, datatypes worden geharmoniseerd en afgeleide kolommen zoals leeftijd en efficiëntiescore worden voorbereid. Vervolgens worden de opgeschoonde tabellen via \texttt{SQLAlchemy} ingeladen in het SQL Server datawarehouse, waar ze in het sterschema worden geplaatst.
+
+In Power BI wordt het datawarehouse als bron gekoppeld. Power Query wordt gebruikt voor beperkte extra transformaties (zoals het toevoegen van een \texttt{Age}-kolom in \texttt{dim\_player} en het mappen van seizoensteksten naar sleutelwaarden). DAX wordt gebruikt om measures te definiëren voor onder meer punten per wedstrijd, shootingpercentages en team- en leaguegemiddelden.
+
+\section{Overzicht van de Power BI-pagina's}%
+\label{sec:paginas}
+
+De Power BI-omgeving is opgebouwd rond vijf pagina's die elk een specifieke rol vervullen in het scoutingproces.
+
+
+\subsection{League Overview}
+
+
+De League Overview pagina geeft een globaal beeld van de competitie. Bovenaan kunnen gebruikers filteren op seizoen en fase (reguliere competitie, play-offs of beide) via twee filters. Daarnaast is er een landen filter waarmee onderscheid gemaakt kan worden tussen Belgische en Nederlandse teams.
+
+Centraal op de pagina staan KPI-kaarten met de gemiddelde leaguestatistieken: punten per wedstrijd (\textit{PPG}), tempo (\textit{PACE}), veldgoalpercentage (\textit{FG\%}), driepuntpercentage (\textit{3P\%}), de assist-turnover-ratio en de efficiëntiescore (\textit{EFF}). Voor het seizoen 2025-2026 bedragen deze respectievelijk 82,64 punten, een tempo van 85,65, 46,36\% veldgoals, 34,60\% driepunters, een assist-turnover-ratio van 1,25 en een gemiddelde efficiëntie van 8,97.
+
+Twee aanvullende grafieken bieden contextuele inzichten. Een scatter plot (\textit{Offense vs Defense}) zet de offensieve score van elk team uit tegenover hun defensieve score, wat toelaat om teams te positioneren als offensief sterk, defensief sterk of evenwichtig. Een lijndiagram (\textit{PPG by Date}) toont het verloop van de gemiddelde punten per wedstrijd doorheen het seizoen, opgesplitst per land (België en Nederland).
+
+Onderaan bevat de pagina een klassementstabel met per team het aantal gewonnen en verloren wedstrijden, het totale aantal gespeelde wedstrijden en het winstpercentage. Naast de klassementstabel staat een horizontaal staafdiagram met de tien hoogst scorende spelers van het seizoen op basis van gemiddelde punten per wedstrijd.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{League overview.png}
+    \caption{League Overview -- Klassement, topscorers, scatter plot offense/defense en algemene competitiestatistieken voor het seizoen 2025--2026.}
+    \label{fig:league_overview}
+\end{figure}
+
+\subsection{Team Dashboard}
+
+De Team Dashboard pagina zoomt in op een geselecteerd team. Via een team filter en een seizoen filter kan de gebruiker een specifieke ploeg en tijdsperiode kiezen. Een fase filter laat bovendien toe om te filteren op de reguliere competitie of de play-offs.
+
+Bovenaan de pagina staat een lijndiagram dat het verloop van de eigen punten per wedstrijd (\textit{PPG}) vergelijkt met de tegenpunten per wedstrijd (\textit{OPP PPG}) doorheen het seizoen. Dit geeft een onmiddellijk beeld van de consistentie en de defensieve prestaties van de ploeg over de tijd.
+
+Daaronder tonen KPI-kaarten de kernstatistieken van het geselecteerde team: het win-verliesrecord, de gemiddelde punten voor en tegen, het veldgoalpercentage (\textit{FG\%}), het driepuntpercentage (\textit{3P\%}), de efficiëntiescore (\textit{EFF}) en de assist-turnover-ratio (\textit{AST/TO}). Voor Brussels Basketball bedragen deze in het seizoen 2025-2026 respectievelijk 17 gewonnen en 14 verloren wedstrijden, 85,03 punten voor, 78,39 punten tegen, 49,55\% veldgoals, 38,15\% driepunters, een efficiëntie van 8,98 en een assist-turnover-ratio van 1,30.
+
+Linksonder vergelijkt een horizontaal staafdiagram (\textit{Team vs League}) de teamgemiddelden met het leaguegemiddelde op zes statistieken: efficiëntie, punten, rebounds, assists, steals en blocks. Rechtsonder staat een spelerstabel (\textit{Player Info}) met per speler het aantal gespeelde wedstrijden, de gemiddelde punten, rebounds, assists, efficiëntiescore en speelminuten.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Team dashboard.png}
+    \caption{Team Dashboard -- Teamstatistieken, PPG-trendsgrafiek, vergelijking met leaguegemiddelde en spelersoverzicht voor Brussels Basketball (seizoen 2025--2026).}
+    \label{fig:team_dashboard}
+\end{figure}
+
+
+\subsection{Player Profile}
+
+
+De Player Profile-pagina biedt een gedetailleerd overzicht van een individuele speler. Via een zoekfunctie en een seizoen filter kan de gebruiker snel een specifieke speler selecteren. Basisinformatie zoals positie, lengte, gewicht en leeftijd wordt bovenaan weergegeven als KPI-kaarten. Voor Dante Jr Maddox (seizoen 2025-2026) zijn dit een lengte van 188 cm, een gewicht van 88,50 kg, positie Guard en leeftijd 24.
+
+Rechts bovenaan staat een lijndiagram (\textit{Points per Game}) dat het verloop van de punten per wedstrijd van de speler doorheen het seizoen visualiseert, samen met een horizontale stippellijn die het seizoensgemiddelde aangeeft.
+
+Een tweede rij KPI-kaarten toont de geaggregeerde gemiddelden per wedstrijd over het volledige seizoen: aantal gespeelde wedstrijden, punten, rebounds, assists, steals, blocks en de efficiëntiescore. Voor Dante Jr Maddox bedragen deze respectievelijk 31 wedstrijden, 25,42 punten, 6,19 rebounds, 2,61 assists, 1,29 steals, 0,26 blocks en een efficiëntie van 26,26.
+
+Linksonder vergelijkt een horizontaal staafdiagram (\textit{Player vs League AVG}) de statistieken van de speler met het leaguegemiddelde. Dit omvat efficiëntie, punten, rebounds (TOT), assists, steals en blocks. De waarden van de speler en het leaguegemiddelde worden naast elkaar weergegeven, waardoor onmiddellijk zichtbaar is op welke vlakken de speler de competitie overstijgt.
+
+Rechtsonder staan drie halve cirkeldiagrammen (\textit{gauges}) die de shootingefficiëntie weergeven. De gauges tonen respectievelijk het aantal gemaakte tweepunters op het totaal aantal pogingen (142/227), het aantal gemaakte driepunters (98/207) en het aantal gemaakte vrijworpen (210/237). Op die manier krijgt een scout niet enkel het percentage te zien, maar ook het absolute volume aan schoten.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Player profile.png}
+    \caption{Player Profile -- Individuele statistieken, shooting gauges en vergelijking met het leaguegemiddelde voor Dante Jr Maddox (seizoen 2025--2026).}
+    \label{fig:player_profile}
+\end{figure}
+
+
+\subsection{Player Comparison}
+
+
+De Player Comparison pagina maakt het mogelijk om twee spelers rechtstreeks met elkaar te vergelijken. Hiervoor worden de gespiegelde tabellen \texttt{fact\_stats\_compare}, \texttt{dim\_player\_compare} en \texttt{dim\_team\_compare} gebruikt, die in Power BI via aparte relaties gekoppeld zijn. Elke speler beschikt over een eigen seizoen filter en een eigen speler zoekfilter, zodat spelers uit verschillende seizoenen vergeleken kunnen worden.
+
+Bovenaan worden per speler de fysieke basisgegevens getoond: lengte, gewicht, positie en leeftijd. Dante Jr Maddox (188 cm, 88,50 kg, Guard, 24 jaar) wordt in dit voorbeeld vergeleken met Siebe Ledegen (198 cm, 78,00 kg, Small Forward, 23 jaar). Daaronder toont een tweede rij KPI-kaarten de gemiddelde statistieken per wedstrijd: punten, rebounds, assists, steals, blocks en de efficiëntiescore. Dante Jr Maddox scoort beduidend hoger op nagenoeg alle statistieken (25,42 punten, efficiëntie 26,26) ten opzichte van Siebe Ledegen (12,81 punten, efficiëntie 13,39).
+
+Voor elke speler zijn ook twee shooting gauges beschikbaar die het absolute aantal gemaakte tweepunters ten opzichte van de pogingen (2PM/2PA) en het aantal gemaakte driepunters ten opzichte van de pogingen (3PM/3PA) weergeven.
+
+Onderaan de pagina brengt een side-by-side staafdiagram (\textit{P1 Value vs P2 Value}) alle kernstatistieken samen in één overzicht. Elke statistiek (EFF, PTS, REB, AST, STL, BLK) wordt weergegeven als twee naast elkaar geplaatste balken in respectievelijk blauw (Speler 1) en oranje (Speler 2). Dit maakt het eenvoudig om het profiel van beide spelers in één oogopslag te vergelijken.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Player compare.png}
+    \caption{Player Comparison -- Directe vergelijking van Dante Jr Maddox en Siebe Ledegen op basis van kernstatistieken en shootingefficiëntie (seizoen 2025--2026).}
+    \label{fig:player_comparison}
+\end{figure}
+
+\subsection{Scouting Shortlist}
+
+De Scouting Shortlist pagina is ontworpen als praktisch werkinstrument voor scouts. De kern van de pagina is een grote tabel (\textit{Player Info}) met alle spelers en hun belangrijkste statistieken: lengte, leeftijd, positie, aantal gespeelde wedstrijden, gemiddelde punten (\textit{PTS}), rebounds (\textit{REB}), assists (\textit{AST}), turnovers (\textit{TO}), steals (\textit{ST}), blocks (\textit{BS}), vrijwerppercentage (\textit{FT\%}), tweepuntpercentage (\textit{2P\%}), driepuntpercentage (\textit{3P\%}) en de efficiëntiescore (\textit{EFF}).
+
+Boven de tabel staan vijf categorische slicers waarmee de lijst gefilterd kan worden: seizoen, team, positie en nationaliteit. Aanvullend zijn er twee numerieke filters beschikbaar: een lengtefilter (tussen 170 en 216 cm) en een leeftijdsfilter (tussen 16 en 44 jaar). De leeftijdscategorieën worden gerealiseerd via een aparte tabel \texttt{Age Categories} en een DAX-expressie die op basis van de \texttt{Age}-kolom van \texttt{dim\_player} een categorie toekent.\autocite{demenius2017benefits}
+
+De tabel is standaard gesorteerd op leeftijd in oplopende volgorde, maar kan door de gebruiker op elke kolom worden gesorteerd. Hierdoor kan een scout een shortlist van interessante kandidaten opbouwen door enkel filters aan te passen en de gewenste sorteerkolom te kiezen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Scouting shortlist.png}
+    \caption{Scouting Shortlist -- Filterbare spelerstabel met statistieken en visuele markering van uitschieters (gefilterd op positie Center, seizoen 2025--2026).}
+    \label{fig:scouting_shortlist}
+\end{figure}
+
+\section{Evaluatie van het prototype}%
+\label{sec:evaluatie}
+ 
+Tot slot wordt het prototype geëvalueerd op basis van de requirementsanalyse uit Hoofdstuk~\ref{ch:onderzoek}. Voor elke requirement wordt nagegaan in welke mate de huidige versie van de omgeving eraan voldoet.
+ 
+\begin{itemize}
+  \item \textbf{R1: Meervoudige filtering op spelerskenmerken.} De Scouting Shortlist-pagina biedt vijf categorische slicers (seizoen, team, positie en twee nationaliteitsfilters) en twee numerieke between slicers voor lengte (170-216 cm) en leeftijd (16-44 jaar). Ook de League Overview pagina beschikt over seizoen-, fase- en landenfilters. Deze filters kunnen vrij gecombineerd worden en reageren snel, waardoor aan deze requirement voldaan wordt.
+ 
+  \item \textbf{R2: League- en teamoverzicht.} De League Overview pagina geeft een helder beeld van de competitie via KPI-kaarten (PPG, PACE, FG\%, 3P\%, AST/TO en EFF), een klassementstabel, een scatter plot die offensieve en defensieve prestaties per team tegenover elkaar zet, een lijndiagram met het PPG-verloop doorheen het seizoen en een top 10 van gemiddelde topscorers. De Team Dashboard pagina laat toe om één ploeg te selecteren en te vergelijken met het leaguegemiddelde via een horizontaal staafdiagram, aangevuld met een PPG versus OPP PPG trendsgrafiek en een spelerstabel. Aan deze requirement wordt voldaan.
+ 
+  \item \textbf{R3: Individueel spelersprofiel.} De Player Profile pagina biedt zowel fysieke basisinformatie (lengte, gewicht, positie, leeftijd) als een punten-per-game lijndiagram, KPI-kaarten met seizoensgemiddelden en een horizontaal staafdiagram dat de speler vergelijkt met het leaguegemiddelde. Drie shooting gauges tonen het absolute volume en de efficiëntie voor tweepunters, driepunters en vrijworpen. De berekeningen zijn gebaseerd op duidelijke DAX-measures en sluiten aan bij de literatuur over prestatie-indicatoren. Hiermee wordt aan R3 voldaan.
+ 
+  \item \textbf{R4: Spelersvergelijking.} Via de Player Comparison pagina kunnen twee spelers onafhankelijk geselecteerd worden via aparte filters en seizoensfilters. Hun fysieke kenmerken en gemiddelde statistieken worden naast elkaar weergegeven in KPI-kaarten, shooting gauges en een side-by-side staafdiagram met de kernstatistieken (EFF, PTS, REB, AST, STL, BLK). De gespiegelde tabellen \texttt{fact\_stats\_compare} en \texttt{dim\_player\_compare} zorgen ervoor dat de filters elkaar niet beïnvloeden. Deze requirement wordt ingevuld, al ontbreekt een radardiagram voor een meer veelzijdige visuele vergelijking.
+ 
+  \item \textbf{R5: Scouting shortlist.} De Scouting Shortlist pagina bevat een uitgebreide tabel met alle relevante statistieken (PTS, REB, AST, TO, ST, BS, FT\%, 2P\%, 3P\% en EFF), brede filter- en sorteermogelijkheden. In combinatie met de filters voldoet deze pagina aan de behoefte om snel een shortlist van interessante spelers op te stellen.
+\end{itemize}
+ 
+Naast deze functionele evaluatie blijkt uit een eerste gebruikstest met voorbeeldscenario's dat de omgeving in staat is om typische scoutingvragen te ondersteunen, zoals het vinden van een vervanger voor een vertrekkende speler of het identificeren van spelers met een bepaald statistisch profiel. In de conclusie wordt hier verder op teruggekomen en worden aanbevelingen geformuleerd voor toekomstige uitbreidingen.
