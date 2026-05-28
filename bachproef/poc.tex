@@ -4,14 +4,20 @@
 In dit hoofdstuk wordt het ontwikkelde proof of concept van de scoutingomgeving beschreven. Het prototype bestaat uit een Power BI-dashboard bovenop het SQL Server datawarehouse. De omgeving omvat vijf hoofdpagina's: League Overview, Team Dashboard, Player Profile, Player Comparison en Scouting Shortlist.
 
 \section{Data-architectuur en ETL-pipeline}%
-\label{sec:architectuur}
+\label{sec:etl}
 
-De ETL-pipeline is opgebouwd in Python. In een eerste stap haalt een scraper historische BNXT-data op van RealGM. Hiervoor wordt gebruikgemaakt van \texttt{requests} en \texttt{nodriver} om de dynamische seizoensfilters correct te doorlopen. Per seizoen worden de spelerslijsten ingelezen en worden de individuele spelerspagina's bezocht om bijkomende biografische informatie te verzamelen.
+De data-architectuur van deze bachelorproef is opgebouwd rond een centrale ETL-pipeline die publieke BNXT- en RealGM-data stap voor stap transformeert naar een rapporteringsklaar datawarehouse in Microsoft SQL Server, waarop vervolgens het Power BI-dashboard wordt geprojecteerd. De gekozen opzet combineert de flexibiliteit van Python voor scraping en opschoning met de betrouwbaarheid en schaalbaarheid van een relationele databank voor opslag en rapportering.
 
-De ruwe CSV's worden daarna met \texttt{pandas} opgeschoond: foute of ontbrekende waarden worden opgespoord, datatypes worden geharmoniseerd en afgeleide kolommen zoals leeftijd en efficiëntiescore worden voorbereid. Vervolgens worden de opgeschoonde tabellen via \texttt{SQLAlchemy} ingeladen in het SQL Server datawarehouse, waar ze in het sterschema worden geplaatst.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ETL_pipeline.png}
+    \caption{Overzicht van de ETL-pipeline van databron tot Power BI-dashboard.}
+    \label{fig:etl-pipeline}
+\end{figure}
 
-In Power BI wordt het datawarehouse als bron gekoppeld. Power Query wordt gebruikt voor beperkte extra transformaties (zoals het toevoegen van een \texttt{Age}-kolom in \texttt{dim\_player} en het mappen van seizoensteksten naar sleutelwaarden). DAX wordt gebruikt om measures te definiëren voor onder meer punten per wedstrijd, shootingpercentages en team- en leaguegemiddelden.
+De ETL-flow vertrekt bij de publieke databronnen (de officiële BNXT League-website en RealGM), waar Python-scripts de spelersprofielen en wedstrijdstatistieken per speler per wedstrijd ophalen. In een eerste stap worden de ruwe gegevens opgeslagen in CSV-bestanden zodat de tussenstappen transparant blijven en eenvoudig opnieuw uitgevoerd kunnen worden. Vervolgens worden deze CSV-bestanden ingeladen in Microsoft SQL Server, waar de data wordt opgeschoond, genormaliseerd en gemodelleerd volgens het sterschema zoals beschreven in Sectie~\ref{sec:datawarehouse}. Vanuit dit datawarehouse wordt ten slotte een verbinding gelegd met Power BI, waar de dimensies en feitentabellen worden gebruikt als basis voor de DAX-measures en visualisaties in het scoutingdashboard.
 
+Er is bewust gekozen voor deze combinatie van tools omdat ze goed aansluit bij courante data-engineeringpraktijken in een BI-context: Python biedt veel vrijheid voor webscraping, fuzzy matching en transformaties, terwijl SQL Server een robuust platform is voor relationele opslag en performante rapportering. Power BI sluit daar naadloos op aan als visualisatielaag, met ingebouwde ondersteuning voor sterschema's en de mogelijkheid om measures en KPI's te definiëren bovenop het datawarehouse. Deze architectuur maakt het bovendien relatief eenvoudig om de pipeline later uit te breiden met bijkomende bronnen of extra transformatielogica.
 \section{Overzicht van de Power BI-pagina's}%
 \label{sec:paginas}
 
@@ -124,5 +130,42 @@ Tot slot wordt het prototype geëvalueerd op basis van de requirementsanalyse ui
  
   \item \textbf{R5: Scouting shortlist.} De Scouting Shortlist pagina bevat een uitgebreide tabel met alle relevante statistieken (PTS, REB, AST, TO, ST, BS, FT\%, 2P\%, 3P\% en EFF), brede filter- en sorteermogelijkheden. In combinatie met de filters voldoet deze pagina aan de behoefte om snel een shortlist van interessante spelers op te stellen.
 \end{itemize}
+
+Om deze kwalitatieve evaluatie aan te vullen, geeft Tabel~\ref{tab:kerncijfers-prototype} een overzicht van enkele kerncijfers van het ontwikkelde prototype.
+
+\begin{table}[H]
+    \centering
+    \caption{Kerncijfers van het BNXT-scoutingprototype.}
+    \label{tab:kerncijfers-prototype}
+    \begin{tabular}{p{0.65\textwidth} r}
+        \toprule
+        \textbf{Criterium} & \textbf{Waarde} \\
+        \midrule
+        Aantal seizoenen in het datawarehouse
+        & 5 \\
+
+        Unieke spelers in \texttt{dim\_player}
+        & 1066 \\
+
+        Unieke teams in \texttt{dim\_team}
+        & 22 \\
+
+        Aantal fuzzy naam-mappings voor spelers
+        & 215 \\
+
+        Aantal ongematchte spelers na opschoning
+        & 0 \\
+
+        Aantal gemapte varianten van teamnamen
+        & 15 \\
+
+        Aantal Power BI-pagina's in het dashboard
+        & 5 \\
+
+        Gemiddelde laadtijd belangrijkste pagina's
+        &  1~s \\
+        \bottomrule
+    \end{tabular}
+\end{table}
  
 Naast deze functionele evaluatie blijkt uit een eerste gebruikstest met voorbeeldscenario's dat de omgeving in staat is om typische scoutingvragen te ondersteunen, zoals het vinden van een vervanger voor een vertrekkende speler of het identificeren van spelers met een bepaald statistisch profiel. In de conclusie wordt hier verder op teruggekomen en worden aanbevelingen geformuleerd voor toekomstige uitbreidingen.

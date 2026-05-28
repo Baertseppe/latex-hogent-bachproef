@@ -8,11 +8,39 @@ Zoals beschreven in de methodologie start het onderzoek na de literatuurstudie m
 
 Voor dit onderzoek wordt gewerkt met historische wedstrijd- en spelersgegevens uit de BNXT League. De kern van de data komt uit publieke bronnen zoals de officiële BNXT league competitie en RealGM, die per seizoen gedetailleerde spelersstatistieken en spelersprofielen bijhouden voor verschillende competities, waaronder de BNXT League. Deze bronnen zijn gekozen omdat ze consistente, gestandaardiseerde statistieken aanbieden per speler per wedstrijd, wat essentieel is voor een betrouwbare datagedreven analyse.
 
+Andere mogelijke databronnen voor Europese competities werden overwogen, maar bleken minder volledig of minder consistent voor de BNXT-context. Daarom is bewust gekozen om de officiële BNXT-website en RealGM als primaire bronnen te gebruiken.
+
 De dataverzameling gebeurt via Python scrapers. Aangezien de spelerspagina's op RealGM gebruikmaken van een filterbalk waarbij elk seizoen een eigen URL-structuur heeft, wordt een script ontwikkeld dat automatisch alle relevante seizoenen doorloopt. Per seizoen worden de lijsten met spelers ingelezen en wordt voor elke speler de detailpagina bezocht om bijkomende informatie op te halen, zoals geboortedatum, lengte, nationaliteit en positie.
 
 Naast de spelersprofielen worden ook de wedstrijdstatistieken per speler per wedstrijd opgehaald via de officiële BNXT leauge website. Deze omvatten onder meer punten, rebounds, assists, steals, blocks, turnovers, gespeelde minuten en de pogingen en treffers voor tweepunters, driepunters en vrijworpen. Hierdoor kan later in Power BI gewerkt worden met zowel ruwe telwaarden als afgeleide percentages.
 
 De ruwe data wordt in eerste instantie opgeslagen in CSV-bestanden, zodat de tussenstappen transparant gedocumenteerd zijn. Vanuit deze CSV-bestanden worden de gegevens vervolgens ingeladen in Microsoft SQL Server, waar het definitieve datawarehouse wordt opgebouwd.
+
+\begin{table}[H]
+    \centering
+    \caption{Overzicht van gebruikte statistische afkortingen.}
+    \label{tab:stat-afkortingen}
+    \begin{tabular}{p{0.4\textwidth} r}
+        \toprule
+        \textbf{Afkorting} & \textbf{Betekenis} \\
+        \midrule
+        PTS   & Points (totaal aantal gescoorde punten) \\
+        REB   & Rebounds (totaal aantal rebounds) \\
+        OR    & Offensive Rebounds \\
+        DR    & Defensive Rebounds \\
+        AST   & Assists \\
+        STL   & Steals \\
+        BLK   & Blocks \\
+        TO    & Turnovers \\
+        FG\%  & Field Goal Percentage \\
+        2P\%  & Two-Point Percentage \\
+        3P\%  & Three-Point Percentage \\
+        FT\%  & Free Throw Percentage \\
+        MIN   & Minutes played (gespeelde minuten) \\
+        EFF   & Efficiëntiescore \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \section{Opschoning van spelers- en teamnamen}%
 \label{sec:data-cleaning}
@@ -32,24 +60,33 @@ Het cleaning script past deze mapping systematisch toe op alle teamnamen in de r
 \section{Datamodellering en datawarehouse}%
 \label{sec:datawarehouse}
 
-Bij de modellering van de data is gekozen voor een klassiek sterschema, omdat dit type model goed aansluit bij rapportering en analytische workloads. De centrale feitentabel \texttt{fact\_stats} bevat de wedstrijdstatistieken per speler per seizoen. Elke rij in deze tabel stelt de prestaties van één speler in één wedstrijd voor en bevat onder meer de volgende velden:
+Bij de modellering van de data is gekozen voor een klassiek sterschema, omdat dit type model goed aansluit bij rapportering en analytische workloads.
 
+Alternatieven zoals een snowflake schema of een platte tabel werden bewust niet gekozen. Een snowflake model zou extra joins en complexiteit toevoegen voor rapportering, terwijl een platte tabel te veel redundantie en minder flexibele filtering zou veroorzaken. Het sterschema biedt in deze context de beste balans tussen eenvoud, performantie en uitbreidbaarheid voor BI toepassingen.
+
+De centrale feitentabel \texttt{fact\_stats} bevat de wedstrijdstatistieken per speler per seizoen. Elke rij in deze tabel stelt de prestaties van één speler in één wedstrijd voor en bevat onder meer de volgende velden:
 \begin{itemize}
-  \item verwijzingen naar de betrokken speler, ploeg, wedstrijd en seizoen.
-  \item ruwe statistieken zoals punten, rebounds, assists, steals, blocks, turnovers en gespeelde minuten.
+  \item verwijzingen naar de betrokken speler, ploeg, wedstrijd en seizoen;
+  \item ruwe statistieken zoals punten, rebounds, assists, steals, blocks, turnovers en gespeelde minuten;
   \item shootingstatistieken (pogingen en treffers voor 2P, 3P en FT).
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sterschema_scouting.png}
+    \caption{Sterschema van het BNXT-scoutingdatawarehouse met \texttt{fact\_stats} en de dimensietabellen \texttt{dim\_player}, \texttt{dim\_team}, \texttt{dim\_games} en \texttt{dim\_season}.}
+    \label{fig:sterschema}
+\end{figure}
+
 Rond deze feitentabel worden verschillende dimensietabellen opgebouwd:
 \begin{itemize}
-  \item \texttt{dim\_player}: bevat per speler een unieke sleutel naam, geboortedatum, lengte, nationaliteit en positie. Op basis van \texttt{BirthDate} wordt in Power Query een extra kolom \texttt{Age} berekend, zodat leeftijd en leeftijdscategorie eenvoudig als filter gebruikt kunnen worden.
+  \item \texttt{dim\_player}: bevat per speler een unieke sleutel, naam, geboortedatum, lengte, nationaliteit en positie. Op basis van \texttt{BirthDate} wordt in Power Query een extra kolom \texttt{Age} berekend, zodat leeftijd en leeftijdscategorie eenvoudig als filter gebruikt kunnen worden.
   \item \texttt{dim\_team}: bevat informatie over de teams, zoals teamnaam en land.
-  \item \texttt{dim\_season}: beschrijft de seizoenen (bijvoorbeeld 2021--2022 t.e.m. 2025--2026) en bevat onder meer een vlag \texttt{Is\_Current\_Season} om het huidige seizoen snel te kunnen aanduiden in Power BI.
+  \item \texttt{dim\_season}: beschrijft de seizoenen (bijvoorbeeld 2021--2022 t.e.m.\ 2025--2026) en bevat onder meer een vlag \texttt{Is\_Current\_Season} om het huidige seizoen snel te kunnen aanduiden in Power BI.
   \item \texttt{dim\_games}: bevat wedstrijdspecifieke informatie, zoals datum, thuis- en uitploeg, eindscore en fase (reguliere competitie of play-offs).
 \end{itemize}
 
 Voor de spelersvergelijkingsfunctionaliteit wordt een duplicatie van de tabellen voorzien: \texttt{fact\_stats\_compare}, \texttt{dim\_player\_compare} en \texttt{dim\_team\_compare}. Deze bevatten dezelfde structuur als de oorspronkelijke feit- en dimensietabel, maar worden in Power BI via aparte relaties gekoppeld. Op die manier kunnen twee spelers onafhankelijk van elkaar geselecteerd worden zonder dat de filters van de eerste speler automatisch op de tweede speler worden toegepast.
-
 \section{Requirementsanalyse}%
 \label{sec:requirementsanalyse}
 
