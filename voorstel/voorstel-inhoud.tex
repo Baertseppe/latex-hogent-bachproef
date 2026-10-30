@@ -1,131 +1,155 @@
 %---------- Inleiding ---------------------------------------------------------
 
-% TODO: Is dit voorstel gebaseerd op een paper van Research Methods die je
-% vorig jaar hebt ingediend? Heb je daarbij eventueel samengewerkt met een
-% andere student?
-% Zo ja, haal dan de tekst hieronder uit commentaar en pas aan.
-
-%\paragraph{Opmerking}
-
-% Dit voorstel is gebaseerd op het onderzoeksvoorstel dat werd geschreven in het
-% kader van het vak Research Methods dat ik (vorig/dit) academiejaar heb
-% uitgewerkt (met medesturent VOORNAAM NAAM als mede-auteur).
-% 
-
 \section{Inleiding}%
 \label{sec:inleiding}
 
-Basketbal is een van de populairste sporten ter wereld, door de populariteit zijn er enorm veel spelers die actief zijn op verschillende niveaus. Voor teams wordt het daardoor ook steeds belangrijker om de juiste spelers te vinden die in het team zouden passen. In de BNXT league, de gezamenlijke Belgisch-Nederlandse basketbalcompetitie wordt er al vaker gekeken naar statistieken en data analyses om hun beslissingen op te baseren. Er bestaan verschillende websites die data aanbieden voor de BNXT league, deze data omvat zowel wedstrijden als spelerstatistieken, maar er is nog geen concrete scoutingomgeving dat deze data op een geïntegreerde wijze inzet om teams te helpen bij het vergelijken en analyseren van spelersstatistieken.
-\\
-\\
-Dit onderzoek richt zich op het ontwerpen en realiseren van een datagedreven scoutingomgeving voor de BNXT league. In deze omgeving wordt alle historische wedstrijddata centraal verzameld in een datawarehouse, opgeschoond en worden eenvoudige machine learning modellen gebruikt om spelers te rangschikken en te vergelijken. De doelgroep van dit onderzoek zijn vooral scouts, data analisten binnen BNXT clubs en sport analytische organisaties die deze data willen gebruiken om hun scoutingsbeslissingen beter te onderbouwen.
-\\
-\\
-De probleemstelling van dit onderzoek luidt als volgt:
+Bij het zoeken naar mogelijke aanwinsten moeten scouts bepalen welke spelers aansluiten bij een gewenst spelersprofiel. Deze bachelorproef vertrekt vanuit de vraag hoe beschikbare wedstrijd- en spelersstatistieken kunnen worden ingezet om die zoektocht te ondersteunen. De focus ligt daarbij niet uitsluitend op het weergeven van cijfers, maar op het vertalen van deze gegevens naar gerichte zoekmogelijkheden en interpreteerbare spelersvergelijkingen.
+
+Dit onderzoek richt zich op het ontwerpen, realiseren en evalueren van een datagedreven scoutingomgeving voor de BNXT League. Wedstrijd- en spelersgegevens worden centraal verzameld, opgeschoond en gemodelleerd. Een interactief Power BI-dashboard maakt deze gegevens toegankelijk via spelersoverzichten, filters, detailpagina's en vergelijkingsschermen. De primaire doelgroep bestaat uit scouts die spelers willen identificeren voor verdere beoordeling.
+
+Naast deze algemene analysemogelijkheden staan twee scoutingfunctionaliteiten centraal. De eerste ondersteunt het zoeken naar spelers met een gelijkaardig statistisch profiel als een geselecteerde referentiespeler. De tweede ondersteunt het signaleren van veelbelovende spelers op basis van expliciete prestatiecriteria. Hiervoor worden machine learning-technieken en aanvullende analysemethoden onderzocht.
+
+Een gelijkaardig statistisch profiel verwijst binnen dit onderzoek naar overeenkomsten in geselecteerde prestatie-indicatoren. Dit betekent niet automatisch dat spelers dezelfde speelstijl, kwaliteit of geschiktheid voor een team hebben. Veelbelovende spelers worden beschouwd als spelers die op basis van onderbouwde criteria in aanmerking komen voor verdere scouting. Deze omschrijving is niet beperkt tot jonge spelers en houdt geen voorspelling van toekomstig spelerssucces in.
+
+De centrale onderzoeksvraag luidt als volgt:
 
 \begin{quote}
-\textbf{Hoofdonderzoeksvraag:} Hoe kan een datagedreven scoutingomgeving voor de BNXT league worden ontworpen en gerealiseerd, zodat scouts spelers efficïent kunnen analyseren en vergelijken op basis van relevante prestatie-indicatoren?
+Hoofdonderzoeksvraag: Hoe kan een datagedreven scoutingomgeving voor de BNXT League worden ontworpen, gerealiseerd en geëvalueerd om scouts te ondersteunen bij het identificeren van spelers met een gelijkaardig statistisch profiel en het signaleren van veelbelovende spelers?
 \end{quote}
 
-Om deze Hoofdonderzoeksvraag te beantwoorden, worden het probleemdomein en het oplossingsdomein verder opgesplitst in de volgende deelvragen:
+Om deze hoofdonderzoeksvraag te beantwoorden, worden het probleemdomein en het oplossingsdomein opgesplitst in de volgende deelvragen.
 
 \subsection{Deelvragen: probleemdomein}
 
-In het probleemdomein worden de volgende deelvragen onderzocht:
 \begin{enumerate}
-  \item Hoe worden beslissingen over scouting en selectie in BNXT-clubs vandaag de dag genomen en welke rol spelen gegevens daarin?
-  \item Welke gegevens over wedstrijden en spelers voor de BNXT League zijn beschikbaar en welke beperkingen of kwaliteitsproblemen zijn er met betrekking tot deze gegevens?
-  \item Met welke uitdagingen worden scouts en sportief managers geconfronteerd bij het vergelijken en evalueren van spelers op basis van bestaande tools en data?
+  \item Hoe beoordelen scouts mogelijke aanwinsten en welke informatie hebben zij nodig bij het zoeken naar gelijkaardige en veelbelovende spelers?
+  \item Welke gegevens over wedstrijden en spelers zijn beschikbaar voor de BNXT League en welke beperkingen of kwaliteitsproblemen bevatten deze gegevens?
+  \item Welke prestatie-indicatoren en criteria zijn relevant om statistische spelersgelijkenis en veelbelovende spelers binnen dit onderzoek af te bakenen?
 \end{enumerate}
 
 \subsection{Deelvragen: oplossingsdomein}
 
-In het oplossingsdomein worden de volgende deelvragen onderzocht:
 \begin{enumerate}
-  \item Hoe kan een data architectuur en pipeline worden ontworpen om BNXT wedstrijd- en spelersstatistieken centraal te verzamelen, op te schonen en te modelleren voor scoutingdoeleinden?
-  \item Welke visualisaties, filters en rangschikkingen zijn het meest geschikt om scouts in een scoutingomgeving te ondersteunen bij het analyseren en vergelijken van spelers?
-  \item In welke mate voldoet de ontwikkelde scoutingomgeving aan de behoeften van de beoogde gebruikers op het vlak van bruikbaarheid, duidelijkheid en datakwaliteit?
+  \item Hoe kan een data-architectuur en pipeline worden ontworpen om BNXT-wedstrijd- en spelersstatistieken centraal te verzamelen, op te schonen en te modelleren?
+  \item Welke machine learning-technieken en aanvullende analysemethoden zijn geschikt om gelijkaardige spelers te identificeren en veelbelovende spelers te signaleren?
+  \item Welke visualisaties, filters en toelichtingen ondersteunen scouts bij het interpreteren en vergelijken van de voorgestelde kandidaten?
 \end{enumerate}
 
-
-Tot slot heeft dit onderzoek als doel om een datagedreven scoutingomgeving te ontwerpen en te realiseren voor de BNXT league. De omgeving combineert een centrale datalaag met wedstrijd- en spelerstatistieken en een visuele laag in de vorm van een dashboard, waarin gebruikers spelers kunnen filteren, analyseren en vergelijken.
-
-%---------- Stand van zaken ---------------------------------------------------
+Het onderzoek levert een proof-of-concept op waarin een centrale datalaag en een interactief dashboard voor algemene spelersanalyse samenkomen met de twee scoutingfunctionaliteiten. De omgeving ondersteunt de voorselectie van kandidaten en laat scouts toe om de voorgestelde spelers verder te onderzoeken. De gebruikte gegevens, indicatoren en analysemethoden worden gedocumenteerd, zodat de resultaten kunnen worden geïnterpreteerd en gereproduceerd. De uiteindelijke spelersbeoordeling blijft bij de scout.
 
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-Met de opkomst van geavanceerde data analyse en business intelligence zoeken steeds meer basketbalclubs naar manieren om hun scouting te verbeteren en datagedreven te ondersteunen \autocite{iglesiasdata}. Sportorganisaties beschikken tegenwoordig over grote hoeveelheden data, maar worstelen vaak met het vertalen van data naar bruikbare inzichten voor scouts \autocite{demenius2017benefits}. In dit onderzoek ligt de focus op een datagedreven scoutingomgeving die deze data vertaalt om beslissingen rond spelers in de BNXT league beter te onderbouwen.
-\\\\
-Een recente studie over data gebaseerde beslissingen binnen teams toont aan dat nog veel clubs hun beslissingen baseren op wat ze observeren, persoonlijke netwerken en andere informatiebronnen \autocite{iglesiasdata}. Deze studie stelt ook dat het aantrekken van spelers een gestructureerd proces is waarin sportieve prestaties, fysieke eigenschappen, financiële omstandigheden en contextuele elementen samenkomen. Aan de andere kant wordt data-based decision-making beschreven als een iteratief proces dat kwantitatieve gegevens en kennis van het domein verenigt onder tijdsdruk en onzekerheid. De kwalitatieve analyse met managers, coaches en scouts toont daarnaast aan dat veel Europese clubs geen samenhangend dataplatform of formeel beslissingskader hanteren, wat het lastig maakt om mogelijke aanwervingen op een systematische manier te vergelijken en de genomen beslissingen te herhalen \autocite{iglesiasdata}.
-\\\\
-Onderzoek in de hoogste basketbalklasse van Litouwen laat zien dat managers en coaches overwegend positief staan tegenover geavanceerde basketbalanalyses, omdat gedetailleerde statische analyses helpen om teamperformantie beter te begrijpen en spelersmarktwaarde nauwkeuriger te bepalen. Tegelijk geeft deze studie aan dat de grootste nood niet alleen ligt bij meer data, maar vooral ook bij het vertalen van deze data naar inzichten aan de hand van visualisaties en dashboards \autocite{demenius2017benefits}.
-\\\\
-In de sportwetenschappelijke sector analyseren systematische studies en meta analyses over talentidentificatie in basketbal de essentiële antropometrische, fysiologische en fysieke elementen die elite spelers van spelers onderscheiden\autocite{han2023basketball}. Deze beoordelingen laten zien dat factoren zoals lengte, lichaamsmassa, sprongkracht, snelheid en uithoudingsvermogen aanzienlijke variaties in prestaties vertonen, waardoor ze cruciale criteria zijn voor selectie en ontwikkeling op de lange termijn in een scoutingsetting. Aanvullend identificeren studies naar key performance indicators bij NBA-spelers wedstrijdstatistieken zoals effective field-goal percentage, true shooting percentage, turnoverpercentage, offensive en defensive rating en plus/minus-varianten als cruciale indicatoren voor spelersimpact en rol in het team  \autocite{dehesa2019key}. Deze resultaten wijzen erop dat een hedendaagse scoutingomgeving zowel fysieke criteria als geavanceerde wedstrijdstatistieken moet combineren om spelersprofielen te beoordelen \autocite{han2023basketball}.
-\\\\
-In de literatuur wordt naast het beschrijven van de huidige praktijk ook gezocht naar richtlijnen om beslissingen met betrekking tot spelers systematischer te ondersteunen. Iglesias presenteert een framework waarin de kwaliteit van gegevens, informatiestromen, menselijke expertise en organisatorische processen worden samengevoegd in een toekomstgericht beslissingskader voor de rekrutering van spelers \autocite{iglesiasdata}. Dit kader vertrekt vanuit het idee van decision support en business intelligence, en benadrukt het belang van transparante informatie, duidelijke visualisaties en een iteratief evaluatieproces met stakeholders.
-\\\\
-Daarnaast laten management- en analysestudies zien dat strategische beslissingen met betrekking tot spelers en personeel steeds vaker worden genomen door middel van gestructureerde planning en selectie, waarbij zowel interne als externe analyses, financiële beperkingen en sportieve doelstellingen worden gecombineerd. Dit soort onderzoek illustreert dat datagedreven tools vooral succesvol zijn wanneer ze analytische informatie combineren met de expertise van scouts, coaches en managers, in plaats van die te vervangen.\autocite{banucha2025strategic}
-\\\\
-Op basis van deze literatuur wordt duidelijk dat er enerzijds een goed beeld bestaat van relevante factoren en knelpunten in basketbalrekrutering, en anderzijds bouwstenen beschikbaar zijn voor datagedreven besluitvorming en analytische ondersteuning. Desondanks worden specifieke toepassingen doorgaans gepresenteerd op het niveau van grote competities of op abstract procesniveau, en er is weinig onderzoek gedaan naar een geïntegreerde scoutingomgeving voor een specifieke competitie, zoals de BNXT League. Deze bachelorproef richt zich op die tekortkoming door een proof-of-concept te creëren waarin BNXT-wedstrijd- en spelersstatistieken gezamenlijk worden georganiseerd en via een dashboard toegankelijk zijn, zodat scouts spelers duidelijker en herhaaldelijk kunnen analyseren en vergelijken.
+Datagedreven analyses bieden aanknopingspunten om spelersbeoordeling te ondersteunen. Demenius en Kreivytė onderzochten de opvattingen van dertig managers, coaches en assistent-coaches van tien Litouwse mannenbasketbalteams. De respondenten stonden overwegend positief tegenover geavanceerde basketbalanalyses en zagen mogelijkheden om tegenstanders en mogelijke nieuwe spelers beter te beoordelen en financiële middelen gerichter in te zetten \autocite{demenius2017benefits}. Deze bevindingen ondersteunen de relevantie van analytische informatie, maar vormen geen rechtstreeks bewijs dat een specifiek dashboard betere rekruteringsbeslissingen oplevert.
 
-% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
-% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
-%   geen onderdeel is van de zin.
-% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
-%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
-%   ...'')
+Rekrutering omvat daarnaast meer dan wedstrijdstatistieken. Banucha en Janasz beschrijven in een casestudy bij een Poolse professionele basketbalclub hoe prestatiegegevens, psychologische kenmerken, scoutingnetwerken en financiële en sportieve doelstellingen samenkomen bij de selectie van spelers en coaches \autocite{banucha2025strategic}. Deze bredere context is relevant voor de afbakening van de bachelorproef: de scoutingomgeving ondersteunt de statistische voorselectie, maar omvat niet alle aspecten van een rekruteringsbeslissing.
 
-% Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
+Onderzoek naar prestatieprofielen biedt een vertrekpunt voor de keuze van indicatoren en analysemethoden. Dehesa et al. onderzochten wedstrijdgebonden profielen van 472 NBA-spelers in 535 wedstrijden met een eindverschil van maximaal acht punten. De onderzochte variabelen omvatten onder meer speeltijd, wedstrijdtempo, offensive en defensive rating, effective field-goal percentage en turnover percentage. Met een clusteranalyse werden vijf profielen tijdens de reguliere competitie en vier tijdens de play-offs onderscheiden \autocite{dehesa2019key}. Deze studie biedt een voorbeeld van statistische profielvorming, maar de gebruikte indicatoren worden niet zonder verdere beoordeling overgenomen voor de BNXT League.
+
+Een andere toepassing van spelersgelijkenis wordt beschreven door Muniz en Flamand. Zij combineren k-meansclustering met een gewogen netwerk en de Louvainmethode om spelersprofielen in de NBA te onderscheiden. Spelers vormen de knopen van het netwerk. De gewichten tussen spelers worden bepaald door de mate waarin zij samen in clusters terechtkomen voor verschillende categorieën basketbalgegevens. De methode wordt toegepast op zes NBA-seizoenen en maakt onder meer gebruik van trackinggegevens \autocite{muniz2022weighted}.
+
+Deze studie biedt een aanknopingspunt voor het onderzoeken van spelersgelijkenis op basis van meerdere statistische dimensies. De aanpak wordt echter niet rechtstreeks overgenomen voor de BNXT League, aangezien de beschikbare gegevens kunnen verschillen. Binnen deze bachelorproef wordt onderzocht welke profielen met de beschikbare statistieken kunnen worden samengesteld en hoe deze scouts kunnen ondersteunen bij het identificeren van kandidaten.
+
+Voor talentsignalering is ook de afbakening van de beschikbare informatie belangrijk. Han et al. onderzochten in een systematische review en meta-analyse achttien studies over antropometrische, fysiologische en fysieke prestatiekenmerken bij talentidentificatie in basketbal. De review rapporteert verschillen tussen onderzochte spelersgroepen voor onder meer lengte, lichaamsmassa, wendbaarheid, snelheid en sprongprestaties \autocite{han2023basketball}. Deze kenmerken zijn niet allemaal beschikbaar in gewone wedstrijdstatistieken.
+
+Daarom wordt binnen deze bachelorproef onderscheid gemaakt tussen volledige talentbeoordeling en het signaleren van spelers op basis van beschikbare statistische gegevens. Het onderzoek richt zich op deze tweede toepassing. Veelbelovend wordt vertaald naar expliciete criteria die worden besproken met een werkveldexpert. De voorgestelde kandidaten worden beschouwd als spelers voor verdere opvolging, niet als bewezen toekomstige succesvolle spelers.
+
+Op basis van de literatuur worden prestatie-indicatoren, mogelijke analysemethoden en evaluatiecriteria geselecteerd. De bijdrage van de bachelorproef bestaat uit het ontwerpen en evalueren van een concrete scoutingomgeving voor de BNXT League.
 
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Methodologie
-
-Het onderzoek is opgezet als een ontwerpgerichte en deels vergelijkende studie waarin een datagedreven scoutingomgeving voor de BNXT League wordt ontworpen, geïmplementeerd en geëvalueerd op basis van historische wedstrijd- en spelersstatistieken. De methode combineert een literatuurstudie, requirements analyse, de uitwerking van een datalaag en de bouw van een dashboard (proof-of-concept).
+Het onderzoek wordt opgezet als een ontwerpgerichte en deels vergelijkende studie waarin een datagedreven scoutingomgeving voor de BNXT League wordt ontworpen, gerealiseerd en geëvalueerd. De methode combineert een literatuurstudie, requirementsanalyse, gegevensverwerking, modelontwikkeling en de implementatie van een Power BI-dashboard.
 
 \subsection{Fase 1: Literatuurstudie en uitwerking deelvragen}
-In de eerste fase focussen we op de literatuurstudie, met name eerdere studies rond data-based decision-making in basketbalrekrutering, talentidentificatie, key performance indicators en strategische selectieprocessen. Deze fase richt zich vooral op de onderliggende vragen binnen het probleemdomein, zoals hoe rekrutering vandaag verloopt en welke statistieken relevant zijn voor spelersbeoordeling. De belangrijkste resultaten van deze fase zijn:
+
+In de eerste fase wordt onderzocht welke prestatie-indicatoren en analysemethoden relevant zijn voor spelersvergelijking en talentsignalering. Daarnaast wordt een werkveldexpert betrokken om de informatiebehoeften van scouts te bespreken en de twee scoutingtaken concreet af te bakenen.
+
+Daarbij wordt bepaald wat binnen het onderzoek wordt verstaan onder een gelijkaardig statistisch profiel en een veelbelovende speler. Ook worden de evaluatiecriteria en een eenvoudige referentiemethode vastgelegd.
+
+De belangrijkste resultaten van deze fase zijn:
 \begin{itemize}
-  \item Een overzicht van relevante prestatie-indicatoren (fysiek en wedstrijd gebonden) voor scouting in basketbal.
-  \item Een set conceptuele bouwstenen en requirements voor een datagedreven scoutingomgeving.
+  \item Een overzicht van relevante en mogelijk beschikbare prestatie-indicatoren.
+  \item Functionele requirements voor de scoutingomgeving.
+  \item Twee afgebakende scoutingcases en bijbehorende beoordelingscriteria.
+  \item Een beschrijving van de referentiemethode waarmee de ontwikkelde aanpak wordt vergeleken.
 \end{itemize}
 
 \subsection{Fase 2: Dataverzameling, opschoning en modellering}
-In de tweede fase worden historische wedstrijd- en spelersgegevens uit de BNXT League verzameld uit publieke of aangeleverde bronnen. De ruwe gegevens worden opgeschoond, genormaliseerd en waar nodig verrijkt met afgeleide kolommen op basis van de literatuur. Voor deze fase worden onder meer de volgende tools gebruikt:
-\begin{itemize}
-  \item Python met pandas voor het opkuisen van de data en transformaties.
-  \item Microsoft SQL voor het modelleren en laden van de gegevens in een relationele databank.
-  \item Github voor versiebeheer van scripts en notebooks.
-\end{itemize}
-Aan het einde van deze fase willen we een duidelijk gedocumenteerde dataset en datamodel bekomen, met een beschrijving van alle gebruikte tabellen en prestatie-indicatoren die het dashboard zullen voeden.
+
+In de tweede fase worden historische wedstrijd- en spelersgegevens uit de BNXT League verzameld uit geselecteerde publieke of aangeleverde bronnen. De onderzochte seizoenen, gebruikte bronnen en dekking van de dataset worden gedocumenteerd.
+
+Python en pandas worden gebruikt voor het opschonen en transformeren van de gegevens. Daarbij worden onder meer ontbrekende waarden, dubbele records, inconsistente identificaties en teamwissels onderzocht. SQL Server wordt gebruikt om de gegevens centraal op te slaan en te modelleren.
+
+Afgeleide indicatoren worden voorzien van een definitie, berekeningswijze en beschrijving van hun beperkingen. Er wordt onderzocht hoe verschillen in speeltijd worden verwerkt en welke schaaltransformaties nodig zijn voor de analysemethoden. Minimumvoorwaarden voor opname in de analyses, zoals gespeelde minuten of wedstrijden, worden verantwoord.
+
+Exacte individuele balbezitten worden niet verondersteld beschikbaar te zijn. Indicatoren die aanvullende gegevens vereisen, worden alleen opgenomen wanneer de benodigde gegevens voldoende betrouwbaar beschikbaar zijn.
+
+Deze fase resulteert in een gedocumenteerde dataset, een datamodel en reproduceerbare verwerkingsscripts.
 
 \subsection{Fase 3: Ontwerp en implementatie van de scoutingomgeving}
-In de derde fase wordt de eigenlijke scoutingomgeving ontworpen en gerealiseerd als Power BI-dashboard bovenop de datalaag. Microsoft Power BI wordt gebruikt om het Datawarehouse, measures in DAX en de visualisaties uit te werken. Op basis van de requirements worden onder meer de volgende onderdelen voorzien:
+
+In de derde fase worden de analysemethoden ontwikkeld en geïntegreerd in een Power BI-dashboard bovenop de centrale datalaag.
+
+Voor het identificeren van gelijkaardige spelers wordt een nearest-neighborbenadering onderzocht. Hiermee worden kandidaten gerangschikt ten opzichte van een geselecteerde referentiespeler. De invloed van de gekozen indicatoren, schaaltransformaties, afstandsmaat en vergelijkingsgroep wordt onderzocht.
+
+Daarnaast wordt clustering onderzocht om statistische spelersprofielen te onderscheiden. Er wordt nagegaan of deze profielen een bruikbare bijdrage leveren aan spelersvergelijking en talentsignalering. Voor het signaleren van veelbelovende spelers worden expliciete prestatiecriteria opgesteld. Daarbij wordt duidelijk onderscheiden welke resultaten voortkomen uit machine learning en welke uit vaste filters of selectieregels.
+
+De analyses worden uitgevoerd in Python. SQL Server ondersteunt de centrale datalaag. Power BI wordt gebruikt voor het semantische model, DAX-measures en visualisaties.
+
+Op basis van de requirements worden de volgende onderdelen voorzien:
 \begin{itemize}
-  \item Een spelersoverzicht met filtermogelijkheden (seizoen, team, positie, leeftijd, minuten, enz.).
-  \item Detailpagina’s per speler met kernstatistieken en prestatie-indicatoren.
-  \item Vergelijkingsschermen waarin twee of meer spelers naast elkaar kunnen worden geplaatst.
+  \item Een spelersoverzicht met filters voor relevante kenmerken, zoals seizoen, team, positie, leeftijd en speeltijd.
+  \item Detailpagina's met kernstatistieken en prestatie-indicatoren.
+  \item Vergelijkingsschermen waarin geselecteerde spelers naast elkaar worden geplaatst.
+  \item Een zoekfunctionaliteit voor spelers met een gelijkaardig statistisch profiel.
+  \item Een overzicht van spelers die voldoen aan de criteria voor verdere scouting.
 \end{itemize}
-In deze fase ligt de focus op het oplossingsdomein, het vertalen van de theoretische inzichten naar een concreet, interactief Power BI-prototype waarmee scouts spelers kunnen analyseren en vergelijken.
+
+Bij voorgestelde kandidaten worden de onderliggende indicatoren, overeenkomsten, verschillen en beschikbare minuten en wedstrijden getoond. De gebruikte vergelijkingsgroep en selectievoorwaarden blijven zichtbaar.
+
+Indien de gegevens voldoende dekking bieden, worden periode- of seizoensvergelijkingen toegevoegd als ondersteunende context. Deze vormen geen afzonderlijk voorspellend model.
 
 \subsection{Fase 4: Evaluatie en gebruiksbeoordeling}
-In de vierde en laatste fase wordt het prototype geëvalueerd. Enerzijds gebeurt dit via technische tests, controle van datakwaliteit, juistheid van berekende indicatoren en performantie van de belangrijkste queries en visualisaties. Anderzijds wordt een beperkte gebruiksevaluatie uitgevoerd aan de hand van vooraf gedefinieerde use cases (zoals “vind een vervanger voor speler X” of “identificeer spelers met een bepaald profiel”). De evaluatie omvat:
+
+In de vierde en laatste fase wordt het prototype technisch en inhoudelijk geëvalueerd.
+
+De technische evaluatie omvat:
 \begin{itemize}
-  \item Een verificatie of de omgeving toelaat om de vooropgestelde use cases uit te voeren.
-  \item Een korte, gestructureerde feedbackronde over bruikbaarheid, duidelijkheid en toegevoegde waarde van het dashboard.
+  \item Controles van de datakwaliteit en gegevenskoppelingen.
+  \item Verificatie van berekende indicatoren aan de hand van geselecteerde voorbeelden.
+  \item Controle van filters, rangschikkingen en dashboardinteracties.
+  \item Beoordeling van de analysemethoden op passende technische kwaliteitsmaten en gevoeligheid voor gewijzigde instellingen.
+  \item Meting van relevante verwerkings- en responstijden.
 \end{itemize}
-Aan het einde van deze fase willen we een objectieve beschrijving geven van de sterktes en beperkingen van de ontwikkelde scoutingomgeving, aangevuld met aanbevelingen voor verdere uitbouw.
+
+De ontwikkelde aanpak wordt vergeleken met een eenvoudige referentiemethode op basis van vooraf vastgelegde filters en rangschikkingen. Hiermee wordt onderzocht welke bijdrage de analysemethoden leveren bovenop een eenvoudige selectie.
+
+De gebruiksbeoordeling gebeurt met een werkveldexpert aan de hand van twee vooraf gedefinieerde scoutingcases:
+\begin{enumerate}
+  \item Identificeer spelers met een gelijkaardig statistisch profiel als een gekozen referentiespeler.
+  \item Identificeer spelers voor verdere scouting op basis van een vooraf vastgelegd zoekprofiel.
+\end{enumerate}
+
+De beoordeling richt zich op de relevantie van de voorgestelde kandidaten, de begrijpelijkheid van de toelichting en de bruikbaarheid van de omgeving. Waar haalbaar worden taakduur en het aantal relevant beoordeelde kandidaten geregistreerd.
+
+De resultaten worden beschreven met vermelding van de onderzochte cases, het aantal beoordelaars en de beperkingen van de dataset. De evaluatie vormt geen bewijs van toekomstig spelerssucces of algemene bruikbaarheid voor alle scoutingopdrachten.
 
 \subsection{Tools}
-Het onderzoek zal gebruikmaken van courante data engineering- en BI-tools: Python pandas en SQL voor de dataverwerking, een relationele databank voor de opslag, en Microsoft Power BI als visualisatie laag voor het scoutingdashboard. Github wordt gebruikt voor versiebeheer van scripts en documentatie.
+
+Het onderzoek maakt gebruik van Python, pandas en scikit-learn voor gegevensverwerking en modelontwikkeling. SQL Server wordt gebruikt voor de centrale opslag en modellering. Power BI ondersteunt de interactieve rapportering. GitHub wordt gebruikt voor versiebeheer van scripts, experimenten en documentatie.
 
 %---------- Verwachte resultaten ----------------------------------------------
-\section{Verwacht resultaat, conclusie}%
+\section{Verwachte resultaten en conclusie}%
 \label{sec:verwachte_resultaten}
 
-Aan de hand van de literatuurstudie en de ontwikkelde methodologie wordt verwacht dat de voorgestelde datagedreven scoutingomgeving een bruikbaar hulpmiddel zal zijn om spelers in de BNXT League objectiever te analyseren en met elkaar te vergelijken. Het Power BI-dashboard moet toelaten om op basis van een centrale datalaag snel te filteren op relevante kenmerken zoals positie, leeftijd, minuten, efficiëntie en andere prestatie-indicatoren, en spelersprofielen naast elkaar te plaatsen. Op die manier wordt een deel van de huidige, eerder intuïtieve en gefragmenteerde besluitvorming rond rekrutering ondersteund door gestructureerde en herhaalbare statistische inzichten.
-\\\\
-Voor scouts en sportief managers biedt het verwachte resultaat een duidelijke meerwaarde. De proof-of-conceptomgeving levert niet enkel een geïntegreerd overzicht van BNXT-wedstrijd- en spelersstatistieken, maar demonstreert ook hoe een club met beperkte middelen een eigen datagedreven scoutingtool kan uitbouwen.
+Het verwachte resultaat is een proof-of-concept van een datagedreven scoutingomgeving voor de BNXT League. Het Power BI-dashboard maakt het mogelijk om spelers te filteren op relevante kenmerken, statistieken te analyseren en spelersprofielen naast elkaar te plaatsen.
+
+Daarnaast ondersteunt de omgeving twee gerichte scoutingtaken: het identificeren van spelers met een gelijkaardig statistisch profiel en het signaleren van veelbelovende spelers voor verdere opvolging. Bij de voorgestelde kandidaten worden de onderliggende indicatoren en de omvang van de beschikbare gegevens inzichtelijk gemaakt.
+
+Naast het prototype levert het onderzoek documentatie van de dataset, het datamodel, de indicatoren en de analysemethoden op. De technische tests en gebruiksbeoordeling beschrijven in welke mate de omgeving consistente, interpreteerbare en bruikbare resultaten oplevert binnen de onderzochte scoutingcases.
+
+De beoogde meerwaarde voor scouts ligt in het gericht doorzoeken van spelersgegevens en het onderbouwen van een voorselectie. Of de ontwikkelde methoden daadwerkelijk meerwaarde bieden ten opzichte van de eenvoudige referentiemethode, wordt op basis van de evaluatie beoordeeld.
+
+De conclusies worden begrensd door de beschikbare gegevens, de gekozen scoutingcases en de omvang van de werkveldbeoordeling. De omgeving ondersteunt de expertise van scouts, maar vervangt geen volledige spelersbeoordeling en garandeert geen toekomstig spelerssucces.
